@@ -1,4 +1,4 @@
-import 'package:care_paw/ui/components/sized_spacer.dart';
+import 'package:care_paw/feature/components/sized_spacer.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/animal.dart';

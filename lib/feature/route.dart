@@ -1,15 +1,17 @@
 import 'package:care_paw/main.dart';
-import 'package:care_paw/ui/home/home_screen.dart';
+import 'package:care_paw/feature/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 // todo 나중에 go_router 써보기
 var routes = (RouteSettings settings) => MaterialPageRoute(
     builder: (context) => switch (RoutePath.getByName(settings.name)) {
+          RoutePath.splash => const SplashScreen(),     // 앱 재시작 or login?
           RoutePath.home => const HomeScreen(),
         },
     settings: settings);
 
 enum RoutePath {
+  splash('splash'),
   home('home');
 
   const RoutePath(this.path);

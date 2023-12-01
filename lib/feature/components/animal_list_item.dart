@@ -1,5 +1,5 @@
 import 'package:care_paw/model/hospitalization_history.dart';
-import 'package:care_paw/ui/components/badge.dart';
+import 'package:care_paw/feature/components/badge.dart';
 import 'package:flutter/material.dart';
 
 class AnimalListItem extends StatelessWidget {
