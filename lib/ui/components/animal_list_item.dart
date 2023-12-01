@@ -13,6 +13,7 @@ class AnimalListItem extends StatelessWidget {
 
     // todo make clickable card
     return Card(
+        margin: EdgeInsets.zero,
         color: theme.colorScheme.surface,
         shape: RoundedRectangleBorder(
             side: BorderSide(
