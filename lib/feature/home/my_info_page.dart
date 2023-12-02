@@ -1,21 +1,26 @@
 import 'package:care_paw/feature/components/sized_spacer.dart';
+import 'package:care_paw/feature/home/home_viewmodel.dart';
+import 'package:care_paw/util/EmptyExtensions.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../model/animal.dart';
 import '../../model/hospitalization_history.dart';
+import '../../model/user.dart';
 import '../components/animal_list_item.dart';
 
-class MyInfoPage extends StatefulWidget {
+class MyInfoPage extends ConsumerStatefulWidget {
   const MyInfoPage({super.key});
 
   @override
-  State<MyInfoPage> createState() => _MyInfoPageState();
+  ConsumerState<MyInfoPage> createState() => _MyInfoPageState();
 }
 
-class _MyInfoPageState extends State<MyInfoPage> {
-  Widget _profile() {
+class _MyInfoPageState extends ConsumerState<MyInfoPage> {
+  Widget _profile(User user) {
+    var textTheme = Theme.of(context).textTheme;
     return Padding(
-        padding: EdgeInsets.symmetric(vertical: 12),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -23,11 +28,16 @@ class _MyInfoPageState extends State<MyInfoPage> {
                 width: 56,
                 height: 56,
                 child: Placeholder(color: Colors.blueGrey)),
-            SizedSpacer(width: 16,),
+            const SizedSpacer(
+              width: 16,
+            ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('닉네임'),
-                Text('직책')
+                Text(user.nickname,
+                    style: textTheme.titleLarge
+                        ?.copyWith(fontWeight: FontWeight.bold)),
+                Text(user.occupation, style: textTheme.labelLarge)
               ],
             )
           ],
@@ -36,6 +46,11 @@ class _MyInfoPageState extends State<MyInfoPage> {
 
   @override
   Widget build(BuildContext context) {
+    final list = ref.watch(homeViewModelProvider.select((value) => value.list));
+    final user = ref.watch(homeViewModelProvider.select((value) => value.user));
+
+    final bookmarked = list?.where((element) => element.isBookmarked == true);
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -44,29 +59,24 @@ class _MyInfoPageState extends State<MyInfoPage> {
         body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedSpacer(height: 20),
-              _profile(),
-              Text('즐겨찾기 환자'),
+              const SizedSpacer(height: 20),
+              if (user != null) _profile(user),
+              const SizedSpacer(height: 20),
+              const Text('즐겨찾기 환자'),
               Expanded(
-                child: ListView(
-                  children: [
-                    AnimalListItem(
-                        item: HospitalizationHistory(
-                            animal: Animal(
-                                name: '먼지',
-                                species: '개',
-                                birth: DateTime.parse('2016-08-10'),
-                                gender: '중성화',
-                                note:
-                                    '침많이흘림 질질질질 침많이흘림 질질질질 침많이흘림 질질질질 침많이흘림 질질질질 침많이흘림 질질질질 침많이흘림 질질질질 침많이흘림 질질질질'),
-                            isBookmarked: false,
-                            hospitalizationStartDate:
-                                DateTime.parse('2023-11-27'),
-                            hospitalizationEndDate:
-                                DateTime.parse('2023-12-15')))
-                  ],
-                ),
+                child: (bookmarked == null || bookmarked!.isEmpty)
+                    ? Center(child: Text('즐겨찾기가 없어요.'))
+                    : ListView(
+                        children: [
+                          for (HospitalizationHistory item in bookmarked)
+                            Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5),
+                                child: AnimalListItem(item: item))
+                        ],
+                      ),
               ),
             ],
           ),
