@@ -22,6 +22,7 @@ class _AnimalListPageState extends ConsumerState<AnimalListPage> {
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          context.push(RoutePath.addAnimal);
         },
         child: const Icon(Icons.add),
       ),
