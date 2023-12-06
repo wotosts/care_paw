@@ -6,12 +6,20 @@ class CPTextField extends StatelessWidget {
       required this.labelText,
       this.icon,
       this.controller,
-      this.singleLine = true});
+      this.singleLine = true,
+      this.enabled,
+      this.textInputType,
+      this.obscureText = false,
+      this.onIconPressed});
 
   final String labelText;
   final IconData? icon;
   final TextEditingController? controller;
   final bool singleLine;
+  final bool? enabled;
+  final TextInputType? textInputType;
+  final bool obscureText;
+  final Function()? onIconPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +27,18 @@ class CPTextField extends StatelessWidget {
       decoration: InputDecoration(
           border: const OutlineInputBorder(),
           labelText: labelText,
-          suffixIcon: icon != null ? Icon(icon!) : null),
+          suffixIcon: icon != null
+              ? IconButton(
+                  icon: Icon(icon!),
+                  onPressed: onIconPressed,
+                )
+              : null),
       controller: controller,
       maxLines: singleLine ? 1 : 100,
       minLines: 1,
-      keyboardType: singleLine ? null : TextInputType.multiline,
+      keyboardType: singleLine ? textInputType : TextInputType.multiline,
+      enabled: enabled,
+      obscureText: obscureText,
     );
   }
 }
