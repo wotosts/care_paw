@@ -20,7 +20,6 @@ final homeViewModelProvider =
 
 @riverpod
 class HomeViewModel extends ChangeNotifier {
-
   List<HospitalizationHistory>? list;
   User? user;
 
@@ -41,7 +40,9 @@ class HomeViewModel extends ChangeNotifier {
       _getTodayHospitalizationHistories() async {
     return [
       HospitalizationHistory(
+          id: 0,
           animal: Animal(
+              id: 0,
               name: '먼지',
               species: '개',
               birth: DateTime.parse('2016-08-10'),
@@ -51,7 +52,9 @@ class HomeViewModel extends ChangeNotifier {
           hospitalizationStartDate: DateTime.parse('2023-11-27'),
           hospitalizationEndDate: DateTime.parse('2023-12-15')),
       HospitalizationHistory(
+        id: 1,
         animal: Animal(
+            id: 1,
             name: '까미',
             species: '개',
             birth: DateTime.parse('2012-08-10'),
@@ -61,7 +64,9 @@ class HomeViewModel extends ChangeNotifier {
         hospitalizationStartDate: DateTime.parse('2023-11-27'),
       ),
       HospitalizationHistory(
+          id: 2,
           animal: Animal(
+            id: 2,
             name: '먀먀',
             species: '고양이',
             birth: DateTime.parse('2020-11-10'),
@@ -71,7 +76,9 @@ class HomeViewModel extends ChangeNotifier {
           hospitalizationStartDate: DateTime.parse('2023-11-27'),
           hospitalizationEndDate: DateTime.parse('2023-12-15')),
       HospitalizationHistory(
+        id: 3,
         animal: Animal(
+            id: 3,
             name: '퐝당',
             species: '새',
             birth: DateTime.parse('2020-03-05'),
