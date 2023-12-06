@@ -1,6 +1,7 @@
 import 'package:care_paw/feature/hospitality/add/hospitality_add_or_edit_screen.dart';
 import 'package:care_paw/feature/hospitality/detail/hospitality_detail_screen.dart';
-import 'package:care_paw/main.dart';
+import 'package:care_paw/feature/signin/sign_up_screen.dart';
+import 'package:care_paw/feature/signin/splash_screen.dart';
 import 'package:care_paw/feature/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -8,14 +9,17 @@ import 'package:flutter/material.dart';
 var routes = (RouteSettings settings) => MaterialPageRoute(
     builder: (context) => switch (RoutePath.getByName(settings.name)) {
           RoutePath.splash => const SplashScreen(), // 앱 재시작 or login?
+          RoutePath.signUp => const SignUpScreen(),
           RoutePath.home => const HomeScreen(),
           RoutePath.addAnimal => const HospitalityAddOrEditScreen(),
-          RoutePath.hospitalizationDetail => HospitalityDetailScreen(animalId: settings.arguments as int)
+          RoutePath.hospitalizationDetail =>
+            HospitalityDetailScreen(animalId: settings.arguments as int)
         },
     settings: settings);
 
 enum RoutePath {
   splash('splash'),
+  signUp('sign_up'),
   home('home'),
   addAnimal('add_animal'),
   hospitalizationDetail('hospitalization_detail');

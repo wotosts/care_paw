@@ -10,7 +10,8 @@ class CPTextField extends StatelessWidget {
       this.enabled,
       this.textInputType,
       this.obscureText = false,
-      this.onIconPressed});
+      this.onIconPressed,
+      this.hintText});
 
   final String labelText;
   final IconData? icon;
@@ -20,6 +21,7 @@ class CPTextField extends StatelessWidget {
   final TextInputType? textInputType;
   final bool obscureText;
   final Function()? onIconPressed;
+  final String? hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class CPTextField extends StatelessWidget {
       decoration: InputDecoration(
           border: const OutlineInputBorder(),
           labelText: labelText,
+          hintText: hintText,
           suffixIcon: icon != null
               ? IconButton(
                   icon: Icon(icon!),
