@@ -1,4 +1,4 @@
-import 'package:care_paw/model/hospitalization_history.dart';
+import 'package:care_paw/model/hospitalization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -20,7 +20,7 @@ final homeViewModelProvider =
 
 @riverpod
 class HomeViewModel extends ChangeNotifier {
-  List<HospitalizationHistory>? list;
+  List<Hospitalization>? list;
   User? user;
 
   HomeViewModel() {
@@ -36,10 +36,10 @@ class HomeViewModel extends ChangeNotifier {
 
   void handleEvent(HomeEvent event) {}
 
-  Future<List<HospitalizationHistory>>
+  Future<List<Hospitalization>>
       _getTodayHospitalizationHistories() async {
     return [
-      HospitalizationHistory(
+      Hospitalization(
           id: 0,
           animal: Animal(
               id: 0,
@@ -51,7 +51,7 @@ class HomeViewModel extends ChangeNotifier {
           isBookmarked: false,
           hospitalizationStartDate: DateTime.parse('2023-11-27'),
           hospitalizationEndDate: DateTime.parse('2023-12-15')),
-      HospitalizationHistory(
+      Hospitalization(
         id: 1,
         animal: Animal(
             id: 1,
@@ -63,7 +63,7 @@ class HomeViewModel extends ChangeNotifier {
         isBookmarked: true,
         hospitalizationStartDate: DateTime.parse('2023-11-27'),
       ),
-      HospitalizationHistory(
+      Hospitalization(
           id: 2,
           animal: Animal(
             id: 2,
@@ -75,7 +75,7 @@ class HomeViewModel extends ChangeNotifier {
           isBookmarked: true,
           hospitalizationStartDate: DateTime.parse('2023-11-27'),
           hospitalizationEndDate: DateTime.parse('2023-12-15')),
-      HospitalizationHistory(
+      Hospitalization(
         id: 3,
         animal: Animal(
             id: 3,

@@ -4,30 +4,24 @@ import 'animal.dart';
 import 'hospitalization_history_note.dart';
 import 'package:intl/intl.dart';
 
-part 'hospitalization_history.freezed.dart';
+part 'hospitalization.freezed.dart';
 
 @freezed
-class HospitalizationHistory with _$HospitalizationHistory {
+class Hospitalization with _$Hospitalization {
 
-  const HospitalizationHistory._();
+  const Hospitalization._();
 
-  factory HospitalizationHistory({
+  factory Hospitalization({
     required final int id,
     required Animal animal,
     required bool isBookmarked, // dto 따로 잡기.. 유저별 bookmark list
     required DateTime hospitalizationStartDate,
     DateTime? hospitalizationEndDate,
     List<HospitalizationHistoryNote>? notes
-  }) = _HospitalizationHistory;
+  }) = _Hospitalization;
 
   String hospitalizationDateString() {
     var format = 'yy.MM.dd (E)';
     return '${DateFormat(format).format(hospitalizationStartDate)} ~ ${hospitalizationEndDate != null ? DateFormat(format).format(hospitalizationEndDate!) :  ''}';
     }
 }
-
-// extension HospitalizationHistoryExtension on _HospitalizationHistory {
-// String hospitalizationDateString() {
-//   var format = 'yy.MM.dd (E)';
-//   return DateFormat(format).format() + ' ~ ' + if(hospitalizationStartDate != null) DateFormat(format).format(hospitalizationEndDate);
-// }

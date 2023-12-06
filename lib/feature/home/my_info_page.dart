@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../model/animal.dart';
-import '../../model/hospitalization_history.dart';
+import '../../model/hospitalization.dart';
 import '../../model/user.dart';
 import '../components/animal_list_item.dart';
 
@@ -73,7 +73,7 @@ class _MyInfoPageState extends ConsumerState<MyInfoPage> {
                     ? const Center(child: Text('즐겨찾기가 없어요.'))
                     : ListView(
                   children: [
-                    for (HospitalizationHistory item in bookmarked)
+                    for (Hospitalization item in bookmarked)
                       Padding(
                           padding:
                           const EdgeInsets.symmetric(vertical: 5),

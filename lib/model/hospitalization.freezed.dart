@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'hospitalization_history.dart';
+part of 'hospitalization.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$HospitalizationHistory {
+mixin _$Hospitalization {
   int get id => throw _privateConstructorUsedError;
   Animal get animal => throw _privateConstructorUsedError;
   bool get isBookmarked =>
@@ -26,15 +26,15 @@ mixin _$HospitalizationHistory {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $HospitalizationHistoryCopyWith<HospitalizationHistory> get copyWith =>
+  $HospitalizationCopyWith<Hospitalization> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $HospitalizationHistoryCopyWith<$Res> {
-  factory $HospitalizationHistoryCopyWith(HospitalizationHistory value,
-          $Res Function(HospitalizationHistory) then) =
-      _$HospitalizationHistoryCopyWithImpl<$Res, HospitalizationHistory>;
+abstract class $HospitalizationCopyWith<$Res> {
+  factory $HospitalizationCopyWith(
+          Hospitalization value, $Res Function(Hospitalization) then) =
+      _$HospitalizationCopyWithImpl<$Res, Hospitalization>;
   @useResult
   $Res call(
       {int id,
@@ -48,10 +48,9 @@ abstract class $HospitalizationHistoryCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$HospitalizationHistoryCopyWithImpl<$Res,
-        $Val extends HospitalizationHistory>
-    implements $HospitalizationHistoryCopyWith<$Res> {
-  _$HospitalizationHistoryCopyWithImpl(this._value, this._then);
+class _$HospitalizationCopyWithImpl<$Res, $Val extends Hospitalization>
+    implements $HospitalizationCopyWith<$Res> {
+  _$HospitalizationCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -106,12 +105,11 @@ class _$HospitalizationHistoryCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$HospitalizationHistoryImplCopyWith<$Res>
-    implements $HospitalizationHistoryCopyWith<$Res> {
-  factory _$$HospitalizationHistoryImplCopyWith(
-          _$HospitalizationHistoryImpl value,
-          $Res Function(_$HospitalizationHistoryImpl) then) =
-      __$$HospitalizationHistoryImplCopyWithImpl<$Res>;
+abstract class _$$HospitalizationImplCopyWith<$Res>
+    implements $HospitalizationCopyWith<$Res> {
+  factory _$$HospitalizationImplCopyWith(_$HospitalizationImpl value,
+          $Res Function(_$HospitalizationImpl) then) =
+      __$$HospitalizationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -127,13 +125,11 @@ abstract class _$$HospitalizationHistoryImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$HospitalizationHistoryImplCopyWithImpl<$Res>
-    extends _$HospitalizationHistoryCopyWithImpl<$Res,
-        _$HospitalizationHistoryImpl>
-    implements _$$HospitalizationHistoryImplCopyWith<$Res> {
-  __$$HospitalizationHistoryImplCopyWithImpl(
-      _$HospitalizationHistoryImpl _value,
-      $Res Function(_$HospitalizationHistoryImpl) _then)
+class __$$HospitalizationImplCopyWithImpl<$Res>
+    extends _$HospitalizationCopyWithImpl<$Res, _$HospitalizationImpl>
+    implements _$$HospitalizationImplCopyWith<$Res> {
+  __$$HospitalizationImplCopyWithImpl(
+      _$HospitalizationImpl _value, $Res Function(_$HospitalizationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -146,7 +142,7 @@ class __$$HospitalizationHistoryImplCopyWithImpl<$Res>
     Object? hospitalizationEndDate = freezed,
     Object? notes = freezed,
   }) {
-    return _then(_$HospitalizationHistoryImpl(
+    return _then(_$HospitalizationImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -177,8 +173,8 @@ class __$$HospitalizationHistoryImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$HospitalizationHistoryImpl extends _HospitalizationHistory {
-  _$HospitalizationHistoryImpl(
+class _$HospitalizationImpl extends _Hospitalization {
+  _$HospitalizationImpl(
       {required this.id,
       required this.animal,
       required this.isBookmarked,
@@ -211,14 +207,14 @@ class _$HospitalizationHistoryImpl extends _HospitalizationHistory {
 
   @override
   String toString() {
-    return 'HospitalizationHistory(id: $id, animal: $animal, isBookmarked: $isBookmarked, hospitalizationStartDate: $hospitalizationStartDate, hospitalizationEndDate: $hospitalizationEndDate, notes: $notes)';
+    return 'Hospitalization(id: $id, animal: $animal, isBookmarked: $isBookmarked, hospitalizationStartDate: $hospitalizationStartDate, hospitalizationEndDate: $hospitalizationEndDate, notes: $notes)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$HospitalizationHistoryImpl &&
+            other is _$HospitalizationImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.animal, animal) || other.animal == animal) &&
             (identical(other.isBookmarked, isBookmarked) ||
@@ -244,21 +240,20 @@ class _$HospitalizationHistoryImpl extends _HospitalizationHistory {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$HospitalizationHistoryImplCopyWith<_$HospitalizationHistoryImpl>
-      get copyWith => __$$HospitalizationHistoryImplCopyWithImpl<
-          _$HospitalizationHistoryImpl>(this, _$identity);
+  _$$HospitalizationImplCopyWith<_$HospitalizationImpl> get copyWith =>
+      __$$HospitalizationImplCopyWithImpl<_$HospitalizationImpl>(
+          this, _$identity);
 }
 
-abstract class _HospitalizationHistory extends HospitalizationHistory {
-  factory _HospitalizationHistory(
-          {required final int id,
-          required final Animal animal,
-          required final bool isBookmarked,
-          required final DateTime hospitalizationStartDate,
-          final DateTime? hospitalizationEndDate,
-          final List<HospitalizationHistoryNote>? notes}) =
-      _$HospitalizationHistoryImpl;
-  _HospitalizationHistory._() : super._();
+abstract class _Hospitalization extends Hospitalization {
+  factory _Hospitalization(
+      {required final int id,
+      required final Animal animal,
+      required final bool isBookmarked,
+      required final DateTime hospitalizationStartDate,
+      final DateTime? hospitalizationEndDate,
+      final List<HospitalizationHistoryNote>? notes}) = _$HospitalizationImpl;
+  _Hospitalization._() : super._();
 
   @override
   int get id;
@@ -274,6 +269,6 @@ abstract class _HospitalizationHistory extends HospitalizationHistory {
   List<HospitalizationHistoryNote>? get notes;
   @override
   @JsonKey(ignore: true)
-  _$$HospitalizationHistoryImplCopyWith<_$HospitalizationHistoryImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$HospitalizationImplCopyWith<_$HospitalizationImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

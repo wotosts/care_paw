@@ -1,9 +1,9 @@
-import 'package:care_paw/model/hospitalization_history.dart';
+import 'package:care_paw/model/hospitalization.dart';
 import 'package:care_paw/feature/components/badge.dart';
 import 'package:flutter/material.dart';
 
 class AnimalListItem extends StatelessWidget {
-  final HospitalizationHistory item;
+  final Hospitalization item;
   final Function()? onClick;
 
   const AnimalListItem({super.key, required this.item, this.onClick});
