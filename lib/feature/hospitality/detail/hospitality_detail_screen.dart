@@ -1,4 +1,6 @@
+import 'package:care_paw/feature/components/expandable_fab.dart';
 import 'package:care_paw/feature/hospitality/detail/hospitality_detail_item_type.dart';
+import 'package:care_paw/model/hospitalization.dart';
 import 'package:care_paw/model/hospitalization_history_note.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -165,17 +167,24 @@ class _HospitalityDetailScreenState
 
   @override
   Widget build(BuildContext context) {
+    var animal = Animal(
+        id: 0,
+        name: '먼지',
+        species: '개',
+        birth: DateTime.parse('2016-08-10'),
+        gender: '중성화',
+        note: '침많이흘림 질질질질');
+    var hospitalization = Hospitalization(
+        id: 0,
+        animal: animal,
+        isBookmarked: false,
+        hospitalizationStartDate: DateTime.parse('2023-11-27'),
+        hospitalizationEndDate: DateTime.parse('2023-12-15'));
     var items = <HospitalityDetailItemType>[
       HospitalityDetailAnimalItem(
-          Animal(
-              id: 0,
-              name: '먼지',
-              species: '개',
-              birth: DateTime.parse('2016-08-10'),
-              gender: '중성화',
-              note: '침많이흘림 질질질질'),
-          DateTime.parse('2023-11-27'),
-          DateTime.parse('2023-12-15')),
+          animal,
+          hospitalization.hospitalizationStartDate,
+          hospitalization.hospitalizationEndDate),
       HospitalityDetailDividerItem(),
       HospitalityDetailTitleItem('케어 타임라인'),
       HospitalityDetailHistoryNoteItem(HospitalizationHistoryNote(
@@ -226,41 +235,99 @@ class _HospitalityDetailScreenState
             occupation: '',
           )))
     ];
+    var colors = Theme.of(context).colorScheme;
 
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(),
-        body: Stack(children: [
-          Container(
-            padding: const EdgeInsets.only(bottom: 80, left: 16, right: 16),
-            child: ListView.separated(
-                itemCount: items.length,
-                separatorBuilder: (context, i) => SizedBox(
-                      height: 14,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(hospitalization.isBookmarked
+                  ? Icons.bookmark
+                  : Icons.bookmark_border))
+        ],
+      ),
+      floatingActionButton: ExpandableFab(
+        distance: 300,
+        children: [
+          FilledButton(
+              onPressed: () {},
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.add),
+                  SizedSpacer(
+                    width: 8,
+                  ),
+                  Text('메모 추가')
+                ],
+              )),
+          FilledButton(
+              onPressed: () {},
+              style: FilledButton.styleFrom(
+                  backgroundColor: colors.secondaryContainer,
+                  foregroundColor: colors.onSecondaryContainer),
+              child: const Text('밥 줬음')),
+          FilledButton(
+              onPressed: () {},
+              style: FilledButton.styleFrom(
+                  backgroundColor: colors.secondaryContainer,
+                  foregroundColor: colors.onSecondaryContainer),
+              child: const Text('처치 완료')),
+          FilledButton(
+              onPressed: () {},
+              style: FilledButton.styleFrom(
+                  backgroundColor: colors.secondaryContainer,
+                  foregroundColor: colors.onSecondaryContainer),
+              child: const Text('청소 완료')),
+          FilledButton(
+              onPressed: () {},
+              style: FilledButton.styleFrom(
+                  backgroundColor: colors.secondaryContainer,
+                  foregroundColor: colors.onSecondaryContainer),
+              child: const Text('약 먹었음')),
+          FilledButton(
+              onPressed: () {},
+              style: FilledButton.styleFrom(
+                  backgroundColor: colors.secondaryContainer,
+                  foregroundColor: colors.onSecondaryContainer),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.check),
+                  SizedSpacer(
+                    width: 8,
+                  ),
+                  Text('퇴원')
+                ],
+              )),
+        ],
+      ),
+      body: Container(
+        padding: const EdgeInsets.only(left: 16, right: 16),
+        child: ListView.separated(
+            itemCount: items.length,
+            separatorBuilder: (context, i) => const SizedBox(
+                  height: 14,
+                ),
+            itemBuilder: (context, i) => switch (items[i]) {
+                  HospitalityDetailAnimalItem item =>
+                    _buildAnimal(item.animal, item.startDate, item.endDate),
+                  HospitalityDetailHistoryNoteItem item =>
+                    HospitalityHistoryNoteItem(
+                      item: item.note,
                     ),
-                itemBuilder: (context, i) => switch (items[i]) {
-                      HospitalityDetailAnimalItem item =>
-                        _buildAnimal(item.animal, item.startDate, item.endDate),
-                      HospitalityDetailHistoryNoteItem item =>
-                        HospitalityHistoryNoteItem(
-                          item: item.note,
-                        ),
-                      HospitalityDetailDividerItem() => Container(
-                          padding: const EdgeInsets.symmetric(vertical: 18),
-                          child: const Divider()),
-                      HospitalityDetailTitleItem item => Text(item.title,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(fontWeight: FontWeight.bold)),
-                    }),
-          ),
-          DraggableScrollableSheet(
-              initialChildSize: 0.1,
-              minChildSize: 0.1,
-              maxChildSize: 0.4,
-              snap: true,
-              builder: (context, controller) => _buildBottomSheet(controller)),
-        ]));
+                  HospitalityDetailDividerItem() => Container(
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      child: const Divider()),
+                  HospitalityDetailTitleItem item => Text(item.title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall
+                          ?.copyWith(fontWeight: FontWeight.bold)),
+                }),
+      ),
+    );
   }
 }
