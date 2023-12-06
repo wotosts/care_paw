@@ -6,6 +6,7 @@ part 'animal.freezed.dart';
 @freezed
 class Animal with _$Animal {
   factory Animal({
+          required final int id,
           required final String name,
           required final String species,
           required final DateTime birth,

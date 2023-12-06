@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Animal {
+  int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get species => throw _privateConstructorUsedError;
   DateTime get birth => throw _privateConstructorUsedError;
@@ -33,7 +34,8 @@ abstract class $AnimalCopyWith<$Res> {
       _$AnimalCopyWithImpl<$Res, Animal>;
   @useResult
   $Res call(
-      {String name,
+      {int id,
+      String name,
       String species,
       DateTime birth,
       String gender,
@@ -54,6 +56,7 @@ class _$AnimalCopyWithImpl<$Res, $Val extends Animal>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? species = null,
     Object? birth = null,
@@ -62,6 +65,10 @@ class _$AnimalCopyWithImpl<$Res, $Val extends Animal>
     Object? imgUrl = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -98,7 +105,8 @@ abstract class _$$AnimalImplCopyWith<$Res> implements $AnimalCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String name,
+      {int id,
+      String name,
       String species,
       DateTime birth,
       String gender,
@@ -117,6 +125,7 @@ class __$$AnimalImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? species = null,
     Object? birth = null,
@@ -125,6 +134,10 @@ class __$$AnimalImplCopyWithImpl<$Res>
     Object? imgUrl = freezed,
   }) {
     return _then(_$AnimalImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -157,13 +170,16 @@ class __$$AnimalImplCopyWithImpl<$Res>
 
 class _$AnimalImpl with DiagnosticableTreeMixin implements _Animal {
   _$AnimalImpl(
-      {required this.name,
+      {required this.id,
+      required this.name,
       required this.species,
       required this.birth,
       required this.gender,
       this.note,
       this.imgUrl});
 
+  @override
+  final int id;
   @override
   final String name;
   @override
@@ -179,7 +195,7 @@ class _$AnimalImpl with DiagnosticableTreeMixin implements _Animal {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Animal(name: $name, species: $species, birth: $birth, gender: $gender, note: $note, imgUrl: $imgUrl)';
+    return 'Animal(id: $id, name: $name, species: $species, birth: $birth, gender: $gender, note: $note, imgUrl: $imgUrl)';
   }
 
   @override
@@ -187,6 +203,7 @@ class _$AnimalImpl with DiagnosticableTreeMixin implements _Animal {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Animal'))
+      ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('species', species))
       ..add(DiagnosticsProperty('birth', birth))
@@ -200,6 +217,7 @@ class _$AnimalImpl with DiagnosticableTreeMixin implements _Animal {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AnimalImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.species, species) || other.species == species) &&
             (identical(other.birth, birth) || other.birth == birth) &&
@@ -210,7 +228,7 @@ class _$AnimalImpl with DiagnosticableTreeMixin implements _Animal {
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, species, birth, gender, note, imgUrl);
+      Object.hash(runtimeType, id, name, species, birth, gender, note, imgUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -221,13 +239,16 @@ class _$AnimalImpl with DiagnosticableTreeMixin implements _Animal {
 
 abstract class _Animal implements Animal {
   factory _Animal(
-      {required final String name,
+      {required final int id,
+      required final String name,
       required final String species,
       required final DateTime birth,
       required final String gender,
       final String? note,
       final String? imgUrl}) = _$AnimalImpl;
 
+  @override
+  int get id;
   @override
   String get name;
   @override

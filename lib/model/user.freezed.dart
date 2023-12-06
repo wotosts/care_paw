@@ -16,8 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$User {
-  String get nickname => throw _privateConstructorUsedError;
+// primary key
   String get email => throw _privateConstructorUsedError;
+  String get nickname => throw _privateConstructorUsedError; // 직책
   String get occupation => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,7 +30,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String nickname, String email, String occupation});
+  $Res call({String email, String nickname, String occupation});
 }
 
 /// @nodoc
@@ -45,18 +46,18 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? nickname = null,
     Object? email = null,
+    Object? nickname = null,
     Object? occupation = null,
   }) {
     return _then(_value.copyWith(
-      nickname: null == nickname
-          ? _value.nickname
-          : nickname // ignore: cast_nullable_to_non_nullable
-              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      nickname: null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
               as String,
       occupation: null == occupation
           ? _value.occupation
@@ -73,7 +74,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$UserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String nickname, String email, String occupation});
+  $Res call({String email, String nickname, String occupation});
 }
 
 /// @nodoc
@@ -86,18 +87,18 @@ class __$$UserImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? nickname = null,
     Object? email = null,
+    Object? nickname = null,
     Object? occupation = null,
   }) {
     return _then(_$UserImpl(
-      nickname: null == nickname
-          ? _value.nickname
-          : nickname // ignore: cast_nullable_to_non_nullable
-              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      nickname: null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
               as String,
       occupation: null == occupation
           ? _value.occupation
@@ -111,18 +112,20 @@ class __$$UserImplCopyWithImpl<$Res>
 
 class _$UserImpl implements _User {
   _$UserImpl(
-      {required this.nickname, required this.email, required this.occupation});
+      {required this.email, required this.nickname, required this.occupation});
 
-  @override
-  final String nickname;
+// primary key
   @override
   final String email;
+  @override
+  final String nickname;
+// 직책
   @override
   final String occupation;
 
   @override
   String toString() {
-    return 'User(nickname: $nickname, email: $email, occupation: $occupation)';
+    return 'User(email: $email, nickname: $nickname, occupation: $occupation)';
   }
 
   @override
@@ -130,15 +133,15 @@ class _$UserImpl implements _User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserImpl &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.nickname, nickname) ||
                 other.nickname == nickname) &&
-            (identical(other.email, email) || other.email == email) &&
             (identical(other.occupation, occupation) ||
                 other.occupation == occupation));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, nickname, email, occupation);
+  int get hashCode => Object.hash(runtimeType, email, nickname, occupation);
 
   @JsonKey(ignore: true)
   @override
@@ -149,15 +152,15 @@ class _$UserImpl implements _User {
 
 abstract class _User implements User {
   factory _User(
-      {required final String nickname,
-      required final String email,
+      {required final String email,
+      required final String nickname,
       required final String occupation}) = _$UserImpl;
 
-  @override
-  String get nickname;
-  @override
+  @override // primary key
   String get email;
   @override
+  String get nickname;
+  @override // 직책
   String get occupation;
   @override
   @JsonKey(ignore: true)

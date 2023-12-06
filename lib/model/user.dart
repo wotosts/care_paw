@@ -5,8 +5,9 @@ part 'user.freezed.dart';
 @freezed
 class User with _$User {
   factory User({
-    required String nickname,
+    // primary key
     required String email,
+    required String nickname,
     // 직책
     required String occupation
   }) = _User;

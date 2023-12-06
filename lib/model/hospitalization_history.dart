@@ -12,6 +12,7 @@ class HospitalizationHistory with _$HospitalizationHistory {
   const HospitalizationHistory._();
 
   factory HospitalizationHistory({
+    required final int id,
     required Animal animal,
     required bool isBookmarked, // dto 따로 잡기.. 유저별 bookmark list
     required DateTime hospitalizationStartDate,

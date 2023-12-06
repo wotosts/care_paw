@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HospitalizationHistory {
+  int get id => throw _privateConstructorUsedError;
   Animal get animal => throw _privateConstructorUsedError;
   bool get isBookmarked =>
       throw _privateConstructorUsedError; // dto 따로 잡기.. 유저별 bookmark list
@@ -36,7 +37,8 @@ abstract class $HospitalizationHistoryCopyWith<$Res> {
       _$HospitalizationHistoryCopyWithImpl<$Res, HospitalizationHistory>;
   @useResult
   $Res call(
-      {Animal animal,
+      {int id,
+      Animal animal,
       bool isBookmarked,
       DateTime hospitalizationStartDate,
       DateTime? hospitalizationEndDate,
@@ -59,6 +61,7 @@ class _$HospitalizationHistoryCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? animal = null,
     Object? isBookmarked = null,
     Object? hospitalizationStartDate = null,
@@ -66,6 +69,10 @@ class _$HospitalizationHistoryCopyWithImpl<$Res,
     Object? notes = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       animal: null == animal
           ? _value.animal
           : animal // ignore: cast_nullable_to_non_nullable
@@ -108,7 +115,8 @@ abstract class _$$HospitalizationHistoryImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Animal animal,
+      {int id,
+      Animal animal,
       bool isBookmarked,
       DateTime hospitalizationStartDate,
       DateTime? hospitalizationEndDate,
@@ -131,6 +139,7 @@ class __$$HospitalizationHistoryImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? animal = null,
     Object? isBookmarked = null,
     Object? hospitalizationStartDate = null,
@@ -138,6 +147,10 @@ class __$$HospitalizationHistoryImplCopyWithImpl<$Res>
     Object? notes = freezed,
   }) {
     return _then(_$HospitalizationHistoryImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       animal: null == animal
           ? _value.animal
           : animal // ignore: cast_nullable_to_non_nullable
@@ -166,7 +179,8 @@ class __$$HospitalizationHistoryImplCopyWithImpl<$Res>
 
 class _$HospitalizationHistoryImpl extends _HospitalizationHistory {
   _$HospitalizationHistoryImpl(
-      {required this.animal,
+      {required this.id,
+      required this.animal,
       required this.isBookmarked,
       required this.hospitalizationStartDate,
       this.hospitalizationEndDate,
@@ -174,6 +188,8 @@ class _$HospitalizationHistoryImpl extends _HospitalizationHistory {
       : _notes = notes,
         super._();
 
+  @override
+  final int id;
   @override
   final Animal animal;
   @override
@@ -195,7 +211,7 @@ class _$HospitalizationHistoryImpl extends _HospitalizationHistory {
 
   @override
   String toString() {
-    return 'HospitalizationHistory(animal: $animal, isBookmarked: $isBookmarked, hospitalizationStartDate: $hospitalizationStartDate, hospitalizationEndDate: $hospitalizationEndDate, notes: $notes)';
+    return 'HospitalizationHistory(id: $id, animal: $animal, isBookmarked: $isBookmarked, hospitalizationStartDate: $hospitalizationStartDate, hospitalizationEndDate: $hospitalizationEndDate, notes: $notes)';
   }
 
   @override
@@ -203,6 +219,7 @@ class _$HospitalizationHistoryImpl extends _HospitalizationHistory {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HospitalizationHistoryImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.animal, animal) || other.animal == animal) &&
             (identical(other.isBookmarked, isBookmarked) ||
                 other.isBookmarked == isBookmarked) &&
@@ -217,6 +234,7 @@ class _$HospitalizationHistoryImpl extends _HospitalizationHistory {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
       animal,
       isBookmarked,
       hospitalizationStartDate,
@@ -233,7 +251,8 @@ class _$HospitalizationHistoryImpl extends _HospitalizationHistory {
 
 abstract class _HospitalizationHistory extends HospitalizationHistory {
   factory _HospitalizationHistory(
-          {required final Animal animal,
+          {required final int id,
+          required final Animal animal,
           required final bool isBookmarked,
           required final DateTime hospitalizationStartDate,
           final DateTime? hospitalizationEndDate,
@@ -241,6 +260,8 @@ abstract class _HospitalizationHistory extends HospitalizationHistory {
       _$HospitalizationHistoryImpl;
   _HospitalizationHistory._() : super._();
 
+  @override
+  int get id;
   @override
   Animal get animal;
   @override
