@@ -1,5 +1,6 @@
 import 'package:care_paw/feature/components/sized_spacer.dart';
 import 'package:care_paw/feature/home/home_viewmodel.dart';
+import 'package:care_paw/feature/route.dart';
 import 'package:care_paw/util/EmptyExtensions.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -18,7 +19,9 @@ class MyInfoPage extends ConsumerStatefulWidget {
 
 class _MyInfoPageState extends ConsumerState<MyInfoPage> {
   Widget _profile(User user) {
-    var textTheme = Theme.of(context).textTheme;
+    var textTheme = Theme
+        .of(context)
+        .textTheme;
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Row(
@@ -67,16 +70,18 @@ class _MyInfoPageState extends ConsumerState<MyInfoPage> {
               const Text('즐겨찾기 환자'),
               Expanded(
                 child: (bookmarked == null || bookmarked!.isEmpty)
-                    ? Center(child: Text('즐겨찾기가 없어요.'))
+                    ? const Center(child: Text('즐겨찾기가 없어요.'))
                     : ListView(
-                        children: [
-                          for (HospitalizationHistory item in bookmarked)
-                            Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                child: AnimalListItem(item: item))
-                        ],
-                      ),
+                  children: [
+                    for (HospitalizationHistory item in bookmarked)
+                      Padding(
+                          padding:
+                          const EdgeInsets.symmetric(vertical: 5),
+                          child: AnimalListItem(item: item, onClick: () {
+                      context.push(RoutePath.hospitalizationDetail, arguments: item.id);
+                      }))
+                  ],
+                ),
               ),
             ],
           ),

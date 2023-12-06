@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class AnimalListItem extends StatelessWidget {
   final HospitalizationHistory item;
+  final Function()? onClick;
 
-  const AnimalListItem({super.key, required this.item});
+  const AnimalListItem({super.key, required this.item, this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class AnimalListItem extends StatelessWidget {
         child: InkWell(
           customBorder:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          onTap: () {},
+          onTap: onClick,
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Row(

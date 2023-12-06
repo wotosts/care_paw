@@ -46,7 +46,9 @@ class _AnimalListPageState extends ConsumerState<AnimalListPage> {
                     itemBuilder: (context, i) {
                       return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: AnimalListItem(item: list![i]));
+                          child: AnimalListItem(item: list![i], onClick: () {
+                            context.push(RoutePath.hospitalizationDetail, arguments: list![i].id);
+                          },));
                     }),
               )
             ],
