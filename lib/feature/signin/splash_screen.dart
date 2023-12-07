@@ -1,95 +1,115 @@
 import 'package:care_paw/feature/components/sized_spacer.dart';
 import 'package:care_paw/feature/components/text_field.dart';
 import 'package:care_paw/feature/route.dart';
+import 'package:care_paw/feature/signin/sign_in_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SplashScreen extends StatefulWidget {
+import 'sign_in_event.dart';
+
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _SplashScreenState extends ConsumerState<SplashScreen>
     with SingleTickerProviderStateMixin {
-  bool _showLoginForm = false;
   bool _showPassword = false;
+
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _checkIsLogIn();
   }
 
-  void _checkIsLogIn() {
-    var isLogin = false;
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
-    Future.delayed(const Duration(seconds: 2), () {
+  Future<bool> _checkIsSignedIn() async {
+    var isLogin = ref.read(signInViewModelProvider.notifier).isSignedIn();
+
+    await Future.delayed(const Duration(seconds: 1), () {
       if (isLogin) {
         context.push(RoutePath.home, popItself: true);
-      } else {
-        setState(() {
-          _showLoginForm = true;
-        });
       }
     });
+
+    return isLogin;
   }
 
-  Widget _buildLogin() {
+  Widget _buildSignIn() {
+    var state = ref.watch(signInViewModelProvider);
+    var viewModel = ref.read(signInViewModelProvider.notifier);
+
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          SizedSpacer(
+          const SizedSpacer(
             height: 160,
           ),
           CPTextField(
             labelText: '이메일',
             textInputType: TextInputType.emailAddress,
+            controller: _emailController,
+            onChanged: (value) {
+              viewModel.setEmail(value);
+            },
           ),
-          SizedSpacer(
+          const SizedSpacer(
             height: 20,
           ),
           CPTextField(
             labelText: '비밀번호',
             textInputType: TextInputType.visiblePassword,
             icon: _showPassword
-                ? Icons.visibility_outlined
-                : Icons.visibility_off_outlined,
-            obscureText: _showPassword,
+                ? Icons.visibility_off_outlined
+                : Icons.visibility_outlined,
+            obscureText: !_showPassword,
             onIconPressed: () {
               setState(() {
                 _showPassword = !_showPassword;
               });
             },
+            controller: _passwordController,
+            onChanged: (value) {
+              viewModel.setPassword(value);
+            },
           ),
-          SizedSpacer(
+          const SizedSpacer(
             height: 24,
           ),
           SizedBox(
               width: double.infinity,
               child: FilledButton(
                 onPressed: () {
-                  context.push(RoutePath.signUp);
+                  viewModel.signIn();
                 },
-                child: Text('로그인 / 회원가입'),
+                child: const Text('로그인 / 회원가입'),
               )),
-          SizedSpacer(
+          const SizedSpacer(
             height: 7,
           ),
           Row(
             children: [
-              Flexible(child: Divider()),
+              const Flexible(child: Divider()),
               Text(
                 ' Or ',
                 style: Theme.of(context).textTheme.labelLarge,
               ),
-              Flexible(child: Divider())
+              const Flexible(child: Divider())
             ],
           ),
-          SizedSpacer(
+          const SizedSpacer(
             height: 20,
           ),
           SizedBox(
@@ -104,13 +124,38 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(signInViewModelProvider.select((value) => value.event), (_, next) {
+      switch (next) {
+        case null:
+          break;
+        case SignInRequireSignUpEvent():
+          context.push(RoutePath.signUp);
+          break;
+        case SignInCompleteEvent():
+          context.push(RoutePath.home);
+          break;
+      }
+    });
+
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('CarePaw', style: Theme.of(context).textTheme.displaySmall),
-            if (_showLoginForm) _buildLogin()
+            FutureBuilder(
+                future: _checkIsSignedIn(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData == false) {
+                    return const CircularProgressIndicator();
+                  }
+
+                  if (snapshot.data == true) {
+                    return const SizedBox();
+                  } else {
+                    return _buildSignIn();
+                  }
+                })
           ],
         ),
       ),
