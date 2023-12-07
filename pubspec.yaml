@@ -51,6 +51,9 @@ dependencies:
   # svg
   flutter_svg: ^2.0.9
 
+  # supabase
+  supabase_flutter: ^1.6.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -72,6 +75,9 @@ dev_dependencies:
   json_serializable: ^6.7.1
 
   equatable: ^2.0.0
+
+  # supabase
+  supabase_flutter: ^1.6.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
