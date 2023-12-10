@@ -14,11 +14,16 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Hospital _$HospitalFromJson(Map<String, dynamic> json) {
+  return _Hospital.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Hospital {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $HospitalCopyWith<Hospital> get copyWith =>
       throw _privateConstructorUsedError;
@@ -100,9 +105,12 @@ class __$$HospitalImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$HospitalImpl implements _Hospital {
   _$HospitalImpl({required this.id, required this.name});
+
+  factory _$HospitalImpl.fromJson(Map<String, dynamic> json) =>
+      _$$HospitalImplFromJson(json);
 
   @override
   final int id;
@@ -123,6 +131,7 @@ class _$HospitalImpl implements _Hospital {
             (identical(other.name, name) || other.name == name));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, name);
 
@@ -131,11 +140,21 @@ class _$HospitalImpl implements _Hospital {
   @pragma('vm:prefer-inline')
   _$$HospitalImplCopyWith<_$HospitalImpl> get copyWith =>
       __$$HospitalImplCopyWithImpl<_$HospitalImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$HospitalImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Hospital implements Hospital {
   factory _Hospital({required final int id, required final String name}) =
       _$HospitalImpl;
+
+  factory _Hospital.fromJson(Map<String, dynamic> json) =
+      _$HospitalImpl.fromJson;
 
   @override
   int get id;

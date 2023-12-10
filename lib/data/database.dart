@@ -1,0 +1,4 @@
+enum DBTable {
+  Hospital,
+  Animal,
+}
