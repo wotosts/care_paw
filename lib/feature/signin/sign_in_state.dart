@@ -10,6 +10,7 @@ class SignInState with _$SignInState {
       {@Default('') String email,
       @Default('') String password,
       String? nickname,
+      String? occupation,
       Hospital? hospital,
       // 화면 노출용
       @Default([]) List<Hospital> hospitals,

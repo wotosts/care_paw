@@ -3,6 +3,7 @@ import 'package:care_paw/feature/components/text_field.dart';
 import 'package:care_paw/feature/route.dart';
 import 'package:care_paw/feature/signin/sign_in_event.dart';
 import 'package:care_paw/feature/signin/sign_in_viewmodel.dart';
+import 'package:care_paw/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -22,6 +23,7 @@ class _SignupScreenState extends ConsumerState<SignUpScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nicknameController = TextEditingController();
   final TextEditingController _hospitalController = TextEditingController();
+  final TextEditingController _occupationController = TextEditingController();
 
   @override
   void initState() {
@@ -34,6 +36,7 @@ class _SignupScreenState extends ConsumerState<SignUpScreen> {
     _passwordController.dispose();
     _nicknameController.dispose();
     _hospitalController.dispose();
+    _occupationController.dispose();
 
     super.dispose();
   }
@@ -45,6 +48,7 @@ class _SignupScreenState extends ConsumerState<SignUpScreen> {
     _passwordController.text = state.password;
     _hospitalController.text = state.hospital?.name ?? '';
     _nicknameController.text = state.nickname ?? '';
+    _occupationController.text = state.occupation ?? '';
   }
 
   @override
@@ -72,6 +76,7 @@ class _SignupScreenState extends ConsumerState<SignUpScreen> {
 
     return Scaffold(
         backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: const Text('필수 정보 입력'),
           automaticallyImplyLeading: false,
@@ -82,6 +87,8 @@ class _SignupScreenState extends ConsumerState<SignUpScreen> {
             child: Stack(
               children: [
                 ListView(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
                   children: [
                     const SizedSpacer(
                       height: 26,
@@ -147,6 +154,24 @@ class _SignupScreenState extends ConsumerState<SignUpScreen> {
                           .toList(),
                       onSelected: (value) {
                         viewModel.setHospital(value!);
+                      },
+                    ),
+                    const SizedSpacer(
+                      height: 20,
+                    ),
+                    DropdownMenu<String>(
+                      label: const Text('직무'),
+                      width: MediaQuery.of(context).size.width - 32,
+                      trailingIcon: const Icon(Icons.arrow_drop_down),
+                      hintText: '직무 입력',
+                      dropdownMenuEntries: [
+                        for (var occupation in Occupation.values)
+                          DropdownMenuEntry(
+                              value: occupation.korean,
+                              label: occupation.korean),
+                      ],
+                      onSelected: (value) {
+                        viewModel.setOccupation(value ?? '');
                       },
                     ),
                   ],

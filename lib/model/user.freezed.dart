@@ -20,6 +20,7 @@ mixin _$User {
   String get email => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError; // 직책
   String get occupation => throw _privateConstructorUsedError;
+  int get hospitalId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
@@ -30,7 +31,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String email, String nickname, String occupation});
+  $Res call({String email, String nickname, String occupation, int hospitalId});
 }
 
 /// @nodoc
@@ -49,6 +50,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? email = null,
     Object? nickname = null,
     Object? occupation = null,
+    Object? hospitalId = null,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -63,6 +65,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.occupation
           : occupation // ignore: cast_nullable_to_non_nullable
               as String,
+      hospitalId: null == hospitalId
+          ? _value.hospitalId
+          : hospitalId // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -74,7 +80,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$UserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String email, String nickname, String occupation});
+  $Res call({String email, String nickname, String occupation, int hospitalId});
 }
 
 /// @nodoc
@@ -90,6 +96,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? email = null,
     Object? nickname = null,
     Object? occupation = null,
+    Object? hospitalId = null,
   }) {
     return _then(_$UserImpl(
       email: null == email
@@ -104,6 +111,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.occupation
           : occupation // ignore: cast_nullable_to_non_nullable
               as String,
+      hospitalId: null == hospitalId
+          ? _value.hospitalId
+          : hospitalId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -112,7 +123,10 @@ class __$$UserImplCopyWithImpl<$Res>
 
 class _$UserImpl implements _User {
   _$UserImpl(
-      {required this.email, required this.nickname, required this.occupation});
+      {required this.email,
+      required this.nickname,
+      required this.occupation,
+      required this.hospitalId});
 
 // primary key
   @override
@@ -122,10 +136,12 @@ class _$UserImpl implements _User {
 // 직책
   @override
   final String occupation;
+  @override
+  final int hospitalId;
 
   @override
   String toString() {
-    return 'User(email: $email, nickname: $nickname, occupation: $occupation)';
+    return 'User(email: $email, nickname: $nickname, occupation: $occupation, hospitalId: $hospitalId)';
   }
 
   @override
@@ -137,11 +153,14 @@ class _$UserImpl implements _User {
             (identical(other.nickname, nickname) ||
                 other.nickname == nickname) &&
             (identical(other.occupation, occupation) ||
-                other.occupation == occupation));
+                other.occupation == occupation) &&
+            (identical(other.hospitalId, hospitalId) ||
+                other.hospitalId == hospitalId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, nickname, occupation);
+  int get hashCode =>
+      Object.hash(runtimeType, email, nickname, occupation, hospitalId);
 
   @JsonKey(ignore: true)
   @override
@@ -154,7 +173,8 @@ abstract class _User implements User {
   factory _User(
       {required final String email,
       required final String nickname,
-      required final String occupation}) = _$UserImpl;
+      required final String occupation,
+      required final int hospitalId}) = _$UserImpl;
 
   @override // primary key
   String get email;
@@ -162,6 +182,8 @@ abstract class _User implements User {
   String get nickname;
   @override // 직책
   String get occupation;
+  @override
+  int get hospitalId;
   @override
   @JsonKey(ignore: true)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>

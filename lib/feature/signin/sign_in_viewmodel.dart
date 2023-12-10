@@ -38,11 +38,16 @@ class SignInViewModel extends StateNotifier<SignInState> {
     state = state.copyWith(hospital: hospital);
   }
 
+  void setOccupation(String occupation) {
+    state = state.copyWith(occupation: occupation);
+  }
+
   bool isSignUpEnabled() {
     return state.hospital != null &&
         state.nickname?.isNotEmpty == true &&
         state.email.isNotEmpty &&
-        state.password.isNotEmpty;
+        state.password.isNotEmpty &&
+        state.occupation?.isNotEmpty == true;
   }
 
   bool isSignedIn() => userRepository.getSignedInUser() != null;
@@ -66,9 +71,10 @@ class SignInViewModel extends StateNotifier<SignInState> {
   }
 
   Future<void> signUp() async {
-    final AuthResponse res = await userRepository.signUp(
-        state.email, state.password, {
+    final AuthResponse res =
+        await userRepository.signUp(state.email, state.password, {
       'nickname': state.nickname,
+      'occupation': state.occupation,
       'hospitalId': state.hospital?.id
     }).catchError((e) {
       if (e is AuthException) {}
