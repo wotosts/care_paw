@@ -3,7 +3,6 @@ import 'package:care_paw/feature/components/text_field.dart';
 import 'package:care_paw/feature/route.dart';
 import 'package:care_paw/feature/signin/sign_in_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'sign_in_event.dart';
@@ -19,8 +18,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     with SingleTickerProviderStateMixin {
   bool _showPassword = false;
 
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -96,27 +95,27 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 },
                 child: const Text('로그인 / 회원가입'),
               )),
-          const SizedSpacer(
-            height: 7,
-          ),
-          Row(
-            children: [
-              const Flexible(child: Divider()),
-              Text(
-                ' Or ',
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-              const Flexible(child: Divider())
-            ],
-          ),
-          const SizedSpacer(
-            height: 20,
-          ),
-          SizedBox(
-            width: 40,
-            height: 40,
-            child: SvgPicture.asset('assets/images/google_auth.svg'),
-          )
+          // const SizedSpacer(
+          //   height: 7,
+          // ),
+          // Row(
+          //   children: [
+          //     const Flexible(child: Divider()),
+          //     Text(
+          //       ' Or ',
+          //       style: Theme.of(context).textTheme.labelLarge,
+          //     ),
+          //     const Flexible(child: Divider())
+          //   ],
+          // ),
+          // const SizedSpacer(
+          //   height: 20,
+          // ),
+          // SizedBox(
+          //   width: 40,
+          //   height: 40,
+          //   child: SvgPicture.asset('assets/images/google_auth.svg'),
+          // )
         ],
       ),
     );
@@ -124,17 +123,21 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(signInViewModelProvider.select((value) => value.event), (_, next) {
+    var viewModel = ref.read(signInViewModelProvider.notifier);
+    ref.listen(signInViewModelProvider.select((value) => value.event),
+        (_, next) {
       switch (next) {
-        case null:
+        case SignInCompleteEvent():
+          context.push(RoutePath.home, popItself: true);
           break;
         case SignInRequireSignUpEvent():
           context.push(RoutePath.signUp);
           break;
-        case SignInCompleteEvent():
-          context.push(RoutePath.home);
+        default:
           break;
       }
+
+      viewModel.clearEvent();
     });
 
     return Scaffold(

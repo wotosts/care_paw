@@ -34,11 +34,17 @@ enum RoutePath {
 }
 
 extension RouteExtension on BuildContext {
-  void push(RoutePath route, {Object? arguments, bool popItself = false}) {
-    if (popItself) {
-      Navigator.of(this).popAndPushNamed(route.path, arguments: arguments);
+  void push(RoutePath route,
+      {Object? arguments, bool popItself = false, bool clear = false}) {
+    var navigator = Navigator.of(this);
+
+    if (clear) {
+      navigator.pushNamedAndRemoveUntil(route.path,
+          (currentRoute) => false, arguments: arguments);
+    } else if (popItself) {
+      navigator.popAndPushNamed(route.path, arguments: arguments);
     } else {
-      Navigator.of(this).pushNamed(route.path, arguments: arguments);
+      navigator.pushNamed(route.path, arguments: arguments);
     }
   }
 }

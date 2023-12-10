@@ -19,7 +19,8 @@ mixin _$SignInState {
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   String? get nickname => throw _privateConstructorUsedError;
-  Hospital? get hospital => throw _privateConstructorUsedError;
+  Hospital? get hospital => throw _privateConstructorUsedError; // 화면 노출용
+  List<Hospital> get hospitals => throw _privateConstructorUsedError;
   SignInEvent? get event => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -38,6 +39,7 @@ abstract class $SignInStateCopyWith<$Res> {
       String password,
       String? nickname,
       Hospital? hospital,
+      List<Hospital> hospitals,
       SignInEvent? event});
 
   $HospitalCopyWith<$Res>? get hospital;
@@ -60,6 +62,7 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
     Object? password = null,
     Object? nickname = freezed,
     Object? hospital = freezed,
+    Object? hospitals = null,
     Object? event = freezed,
   }) {
     return _then(_value.copyWith(
@@ -79,6 +82,10 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
           ? _value.hospital
           : hospital // ignore: cast_nullable_to_non_nullable
               as Hospital?,
+      hospitals: null == hospitals
+          ? _value.hospitals
+          : hospitals // ignore: cast_nullable_to_non_nullable
+              as List<Hospital>,
       event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
@@ -112,6 +119,7 @@ abstract class _$$SignInStateImplCopyWith<$Res>
       String password,
       String? nickname,
       Hospital? hospital,
+      List<Hospital> hospitals,
       SignInEvent? event});
 
   @override
@@ -133,6 +141,7 @@ class __$$SignInStateImplCopyWithImpl<$Res>
     Object? password = null,
     Object? nickname = freezed,
     Object? hospital = freezed,
+    Object? hospitals = null,
     Object? event = freezed,
   }) {
     return _then(_$SignInStateImpl(
@@ -152,6 +161,10 @@ class __$$SignInStateImplCopyWithImpl<$Res>
           ? _value.hospital
           : hospital // ignore: cast_nullable_to_non_nullable
               as Hospital?,
+      hospitals: null == hospitals
+          ? _value._hospitals
+          : hospitals // ignore: cast_nullable_to_non_nullable
+              as List<Hospital>,
       event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
@@ -168,7 +181,9 @@ class _$SignInStateImpl implements _SignInState {
       this.password = '',
       this.nickname,
       this.hospital,
-      this.event});
+      final List<Hospital> hospitals = const [],
+      this.event})
+      : _hospitals = hospitals;
 
   @override
   @JsonKey()
@@ -180,12 +195,23 @@ class _$SignInStateImpl implements _SignInState {
   final String? nickname;
   @override
   final Hospital? hospital;
+// 화면 노출용
+  final List<Hospital> _hospitals;
+// 화면 노출용
+  @override
+  @JsonKey()
+  List<Hospital> get hospitals {
+    if (_hospitals is EqualUnmodifiableListView) return _hospitals;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_hospitals);
+  }
+
   @override
   final SignInEvent? event;
 
   @override
   String toString() {
-    return 'SignInState(email: $email, password: $password, nickname: $nickname, hospital: $hospital, event: $event)';
+    return 'SignInState(email: $email, password: $password, nickname: $nickname, hospital: $hospital, hospitals: $hospitals, event: $event)';
   }
 
   @override
@@ -200,12 +226,14 @@ class _$SignInStateImpl implements _SignInState {
                 other.nickname == nickname) &&
             (identical(other.hospital, hospital) ||
                 other.hospital == hospital) &&
+            const DeepCollectionEquality()
+                .equals(other._hospitals, _hospitals) &&
             (identical(other.event, event) || other.event == event));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, email, password, nickname, hospital, event);
+  int get hashCode => Object.hash(runtimeType, email, password, nickname,
+      hospital, const DeepCollectionEquality().hash(_hospitals), event);
 
   @JsonKey(ignore: true)
   @override
@@ -220,6 +248,7 @@ abstract class _SignInState implements SignInState {
       final String password,
       final String? nickname,
       final Hospital? hospital,
+      final List<Hospital> hospitals,
       final SignInEvent? event}) = _$SignInStateImpl;
 
   @override
@@ -230,6 +259,8 @@ abstract class _SignInState implements SignInState {
   String? get nickname;
   @override
   Hospital? get hospital;
+  @override // 화면 노출용
+  List<Hospital> get hospitals;
   @override
   SignInEvent? get event;
   @override

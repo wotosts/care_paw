@@ -28,23 +28,22 @@ class CPTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onChanged: onChanged,
-      decoration: InputDecoration(
-          border: const OutlineInputBorder(),
-          labelText: labelText,
-          hintText: hintText,
-          suffixIcon: icon != null
-              ? IconButton(
-                  icon: Icon(icon!),
-                  onPressed: onIconPressed,
-                )
-              : null),
-      controller: controller,
-      maxLines: singleLine ? 1 : 100,
-      minLines: 1,
-      keyboardType: singleLine ? textInputType : TextInputType.multiline,
-      enabled: enabled,
-      obscureText: obscureText,
-    );
+        onChanged: onChanged,
+        decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            labelText: labelText,
+            hintText: hintText,
+            suffixIcon: icon != null
+                ? IconButton(
+                    icon: Icon(icon!),
+                    onPressed: onIconPressed,
+                  )
+                : null),
+        controller: controller,
+        maxLines: singleLine ? 1 : 100,
+        minLines: 1,
+        keyboardType: singleLine ? textInputType : TextInputType.multiline,
+        enabled: enabled,
+        obscureText: obscureText);
   }
 }
