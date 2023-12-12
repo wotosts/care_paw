@@ -1,10 +1,10 @@
+import 'package:care_paw/data/di.dart';
 import 'package:care_paw/model/hospitalization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../data/user_repository.dart';
 import '../../model/animal.dart';
-import '../../model/user.dart';
+import 'home_state.dart';
 
 abstract class HomeEvent {}
 
@@ -15,29 +15,26 @@ class HomeBookmarkChangeEvent extends HomeEvent {
 }
 
 // todo to use riverpod code generator
-final homeViewModelProvider =
-    ChangeNotifierProvider<HomeViewModel>((ref) => HomeViewModel());
+final homeViewModelProvider = StateNotifierProvider<HomeViewModel, HomeState>(
+    (ref) => HomeViewModel(userRepository: ref.read(userRepositoryProvider)));
 
-@riverpod
-class HomeViewModel extends ChangeNotifier {
-  List<Hospitalization>? list;
-  User? user;
+class HomeViewModel extends StateNotifier<HomeState> {
+  final UserRepository userRepository;
 
-  HomeViewModel() {
-    // todo merge strem and update state once
+  HomeViewModel({required this.userRepository}) : super(HomeState()) {
+    // todo merge stream and update state once
     _getTodayHospitalizationHistories().then((value) {
-      list = value;
-    }).whenComplete(notifyListeners);
+      state = state.copyWith(list: value);
+    });
 
-    _getCurrentUser().then((value) {
-      user = value;
-    }).whenComplete(notifyListeners);
+    userRepository.currentUser().listen((value) {
+      state = state.copyWith(user: value);
+    });
   }
 
   void handleEvent(HomeEvent event) {}
 
-  Future<List<Hospitalization>>
-      _getTodayHospitalizationHistories() async {
+  Future<List<Hospitalization>> _getTodayHospitalizationHistories() async {
     return [
       Hospitalization(
           id: 0,
@@ -90,10 +87,7 @@ class HomeViewModel extends ChangeNotifier {
     ];
   }
 
-  Future<User> _getCurrentUser() async {
-    // todo test user
-    return User(nickname: '멍지쌤', email: 'tosts522@gmail.com', occupation: '견주');
-  }
-
   Future<void> _changeBookmarked(bool newBookmarkState) async {}
+
+  Future<void> signOut() async => userRepository.signOut();
 }

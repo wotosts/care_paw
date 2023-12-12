@@ -3,6 +3,8 @@ import 'package:care_paw/feature/home/my_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'home_viewmodel.dart';
+
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
@@ -17,12 +19,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //final viewModel = ref.read(homeViewModelProvider);
+    final viewModel = ref.read(homeViewModelProvider);
 
     return Scaffold(
         backgroundColor: Colors.white,
         bottomNavigationBar: NavigationBar(
-          destinations: [
+          destinations: const [
             NavigationDestination(icon: Icon(Icons.list), label: '입원 환자'),
             NavigationDestination(
                 icon: Icon(Icons.person_outline), label: '내 정보'),
