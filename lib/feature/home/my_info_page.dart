@@ -10,6 +10,15 @@ import '../../model/hospitalization.dart';
 import '../../model/user.dart';
 import '../components/animal_list_item.dart';
 
+enum MyInfoMenu {
+  setting('설정'),
+  logout('로그아웃');
+
+  final String korean;
+
+  const MyInfoMenu(this.korean);
+}
+
 class MyInfoPage extends ConsumerStatefulWidget {
   const MyInfoPage({super.key});
 
@@ -19,9 +28,7 @@ class MyInfoPage extends ConsumerStatefulWidget {
 
 class _MyInfoPageState extends ConsumerState<MyInfoPage> {
   Widget _profile(User user) {
-    var textTheme = Theme
-        .of(context)
-        .textTheme;
+    var textTheme = Theme.of(context).textTheme;
     return Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Row(
@@ -49,6 +56,7 @@ class _MyInfoPageState extends ConsumerState<MyInfoPage> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = ref.read(homeViewModelProvider.notifier);
     final list = ref.watch(homeViewModelProvider.select((value) => value.list));
     final user = ref.watch(homeViewModelProvider.select((value) => value.user));
 
@@ -57,7 +65,28 @@ class _MyInfoPageState extends ConsumerState<MyInfoPage> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.settings))],
+          actions: [
+            PopupMenuButton<MyInfoMenu>(
+                icon: const Icon(Icons.settings),
+                offset: const Offset(0, 56),
+                onSelected: (MyInfoMenu menu) {
+                  switch (menu) {
+                    case MyInfoMenu.logout:
+                      viewModel.signOut().then((value) =>
+                          {context.push(RoutePath.splash, popItself: true)});
+                      break;
+                    case MyInfoMenu.setting:
+                      break;
+                  }
+                },
+                itemBuilder: (BuildContext context) => [
+                      for (MyInfoMenu menu in MyInfoMenu.values)
+                        PopupMenuItem(
+                          value: menu,
+                          child: Text(menu.korean),
+                        )
+                    ])
+          ],
         ),
         body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -72,16 +101,20 @@ class _MyInfoPageState extends ConsumerState<MyInfoPage> {
                 child: (bookmarked == null || bookmarked!.isEmpty)
                     ? const Center(child: Text('즐겨찾기가 없어요.'))
                     : ListView(
-                  children: [
-                    for (Hospitalization item in bookmarked)
-                      Padding(
-                          padding:
-                          const EdgeInsets.symmetric(vertical: 5),
-                          child: AnimalListItem(item: item, onClick: () {
-                      context.push(RoutePath.hospitalizationDetail, arguments: item.id);
-                      }))
-                  ],
-                ),
+                        children: [
+                          for (Hospitalization item in bookmarked)
+                            Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5),
+                                child: AnimalListItem(
+                                    item: item,
+                                    onClick: () {
+                                      context.push(
+                                          RoutePath.hospitalizationDetail,
+                                          arguments: item.id);
+                                    }))
+                        ],
+                      ),
               ),
             ],
           ),
