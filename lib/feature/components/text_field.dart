@@ -12,7 +12,8 @@ class CPTextField extends StatelessWidget {
       this.obscureText = false,
       this.onIconPressed,
       this.hintText,
-      this.onChanged});
+      this.onChanged,
+      this.readOnly = false});
 
   final String labelText;
   final IconData? icon;
@@ -24,26 +25,29 @@ class CPTextField extends StatelessWidget {
   final Function()? onIconPressed;
   final String? hintText;
   final Function(String)? onChanged;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-        onChanged: onChanged,
-        decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            labelText: labelText,
-            hintText: hintText,
-            suffixIcon: icon != null
-                ? IconButton(
-                    icon: Icon(icon!),
-                    onPressed: onIconPressed,
-                  )
-                : null),
-        controller: controller,
-        maxLines: singleLine ? 1 : 100,
-        minLines: 1,
-        keyboardType: singleLine ? textInputType : TextInputType.multiline,
-        enabled: enabled,
-        obscureText: obscureText);
+      onChanged: onChanged,
+      decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: labelText,
+          hintText: hintText,
+          suffixIcon: icon != null
+              ? IconButton(
+                  icon: Icon(icon!),
+                  onPressed: onIconPressed,
+                )
+              : null),
+      controller: controller,
+      maxLines: singleLine ? 1 : 100,
+      minLines: 1,
+      keyboardType: singleLine ? textInputType : TextInputType.multiline,
+      enabled: enabled,
+      obscureText: obscureText,
+      readOnly: readOnly,
+    );
   }
 }
