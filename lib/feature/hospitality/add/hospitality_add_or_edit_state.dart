@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../model/animal.dart';
 
@@ -13,7 +14,8 @@ class HospitalityAddOrEditState with _$HospitalityAddOrEditState {
     DateTime? hospitalizationEndDate,
     String? animalName,
     String? note,
-    String? species,
-    Gender? gender
+    Species? species,
+    Gender? gender,
+    XFile? image
   }) = _HospitalityAddOrEditState;
 }

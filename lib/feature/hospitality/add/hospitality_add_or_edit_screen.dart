@@ -1,9 +1,9 @@
-import 'package:care_paw/data/di.dart';
+import 'package:care_paw/feature/components/pickable_image.dart';
 import 'package:care_paw/feature/components/sized_spacer.dart';
 import 'package:care_paw/feature/components/text_field.dart';
+import 'package:care_paw/feature/hospitality/add/hospitality_add_or_edit_state.dart';
 import 'package:care_paw/feature/hospitality/add/hospitality_add_or_edit_viewmodel.dart';
 import 'package:care_paw/util/DateTimeUtil.dart';
-import 'package:care_paw/util/EmptyExtensions.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -24,6 +24,7 @@ class _HospitalityAddOrEditScreenState
   final TextEditingController _endDateController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
   final TextEditingController _speciesController = TextEditingController();
+  final TextEditingController _genderController = TextEditingController();
 
   Future<DateTime?> selectDate({DateTime? lastDate}) async {
     return await showDatePicker(
@@ -33,14 +34,37 @@ class _HospitalityAddOrEditScreenState
         lastDate: lastDate ?? DateTime(3000));
   }
 
+  bool _isButtonEnabled(HospitalityAddOrEditState state) {
+    return state.species != null &&
+        state.image != null &&
+        state.animalName?.isNotEmpty == true &&
+        state.hospitalizationStartDate != null &&
+        state.birth != null &&
+        state.gender != null;
+  }
+
+  @override
+  void dispose() {
+    _birthController.dispose();
+    _startDateController.dispose();
+    _endDateController.dispose();
+
+    super.dispose();
+  }
+
+  dynamic watchProvider(Function(HospitalityAddOrEditState) select) =>
+      ref.watch(hospitalityAddOrEditViewModelProvider.select(select));
+
   @override
   Widget build(BuildContext context) {
     var viewModel = ref.read(hospitalityAddOrEditViewModelProvider.notifier);
-    var state = ref.watch(hospitalityAddOrEditViewModelProvider);
 
-    _birthController.text = state.birth.toDateString();
-    _startDateController.text = state.hospitalizationStartDate.toDateString();
-    _endDateController.text = state.hospitalizationEndDate.toDateString();
+    _birthController.text =
+        watchProvider((value) => value.birth.toDateString());
+    _startDateController.text =
+        watchProvider((value) => value.hospitalizationStartDate.toDateString());
+    _endDateController.text =
+        watchProvider((value) => value.hospitalizationEndDate.toDateString());
 
     var margin = const SizedSpacer(
       height: 22,
@@ -49,57 +73,53 @@ class _HospitalityAddOrEditScreenState
         backgroundColor: Colors.white,
         appBar: AppBar(),
         body: Container(
-          padding: const EdgeInsets.only(top: 28, left: 16, right: 16),
+          padding: const EdgeInsets.only(left: 16, right: 16),
           child: Stack(children: [
             ListView(
-              padding: const EdgeInsets.only(bottom: 16),
+              padding: const EdgeInsets.only(top: 28, bottom: 16),
               children: [
-                Center(
-                  child: SizedBox(
-                    width: 128,
-                    height: 128,
-                    child: Card(
-                        elevation: 0,
-                        color: Theme.of(context).colorScheme.secondaryContainer,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16)),
-                        clipBehavior: Clip.antiAlias,
-                        child: InkWell(
-                          onTap: () {
-                            // todo 사진 선택
-                          },
-                          child: Icon(
-                            Icons.image_outlined,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSecondaryContainer,
-                          ),
-                        )),
-                  ),
-                ),
+                Center(child: PickableImage(
+                  onPicked: (image) {
+                    viewModel.setImage(image);
+                  },
+                )),
                 margin,
                 CPTextField(
-                  labelText: '이름',
+                  labelText: '환자 이름',
                   controller: _nameController,
+                  onChanged: (value) {
+                    viewModel.setAnimalName(value);
+                  },
                 ),
                 margin,
-                CPTextField(
-                  labelText: '분류',
-                  icon: Icons.arrow_drop_down,
+                DropdownMenu<Species>(
+                  label: const Text('분류'),
+                  width: MediaQuery.of(context).size.width - 32,
+                  trailingIcon: const Icon(Icons.arrow_drop_down),
                   controller: _speciesController,
+                  dropdownMenuEntries: [
+                    for (var species in Species.values)
+                      DropdownMenuEntry(value: species, label: species.korean),
+                  ],
+                  onSelected: (value) {
+                    viewModel.setSpecies(value);
+                  },
                 ),
                 margin,
                 Row(children: [
                   DropdownMenu<Gender>(
                     label: const Text('성별'),
+                    // todo size
                     width: (MediaQuery.of(context).size.width - 32) / 2 - 6,
-                    // todo
                     trailingIcon: const Icon(Icons.arrow_drop_down),
+                    controller: _genderController,
                     dropdownMenuEntries: [
                       for (var gender in Gender.values)
                         DropdownMenuEntry(value: gender, label: gender.korean),
                     ],
-                    onSelected: (value) {},
+                    onSelected: (value) {
+                      viewModel.setGender(value);
+                    },
                   ),
                   const SizedSpacer(
                     width: 12,
@@ -110,7 +130,7 @@ class _HospitalityAddOrEditScreenState
                           icon: Icons.calendar_month,
                           readOnly: true,
                           controller: _birthController,
-                          onIconPressed: () {
+                          onTap: () {
                             selectDate(lastDate: DateTime.now()).then((value) {
                               viewModel.setBirth(value);
                             });
@@ -124,7 +144,7 @@ class _HospitalityAddOrEditScreenState
                     icon: Icons.calendar_month,
                     readOnly: true,
                     controller: _startDateController,
-                    onIconPressed: () {
+                    onTap: () {
                       selectDate().then((value) {
                         viewModel.setHospitalizationStartDate(value);
                       });
@@ -139,7 +159,7 @@ class _HospitalityAddOrEditScreenState
                     icon: Icons.calendar_month,
                     readOnly: true,
                     controller: _endDateController,
-                    onIconPressed: () {
+                    onTap: () {
                       selectDate().then((value) {
                         viewModel.setHospitalizationEndDate(value);
                       });
@@ -151,6 +171,9 @@ class _HospitalityAddOrEditScreenState
                   labelText: '특이사항',
                   controller: _noteController,
                   singleLine: false,
+                  onChanged: (value) {
+                    viewModel.setNote(value);
+                  },
                 ),
                 const SizedSpacer(
                   height: 80,
@@ -163,7 +186,10 @@ class _HospitalityAddOrEditScreenState
                 child: SizedBox(
                     width: double.infinity,
                     child: FilledButton(
-                      onPressed: () {},
+                      onPressed: _isButtonEnabled(
+                              ref.watch(hospitalityAddOrEditViewModelProvider))
+                          ? () {}
+                          : null,
                       child: Text('저장하기'),
                     )))
           ]),

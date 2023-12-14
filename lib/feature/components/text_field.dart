@@ -13,6 +13,7 @@ class CPTextField extends StatelessWidget {
       this.onIconPressed,
       this.hintText,
       this.onChanged,
+      this.onTap,
       this.readOnly = false});
 
   final String labelText;
@@ -25,6 +26,7 @@ class CPTextField extends StatelessWidget {
   final Function()? onIconPressed;
   final String? hintText;
   final Function(String)? onChanged;
+  final Function()? onTap;
   final bool readOnly;
 
   @override
@@ -48,6 +50,7 @@ class CPTextField extends StatelessWidget {
       enabled: enabled,
       obscureText: obscureText,
       readOnly: readOnly,
+      onTap: onTap,
     );
   }
 }
