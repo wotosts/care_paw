@@ -1,7 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../main.dart';
 import '../model/user.dart' as CPUser;
+import 'database.dart';
 
 abstract class UserRepository {
   Stream<CPUser.User?> currentUser();

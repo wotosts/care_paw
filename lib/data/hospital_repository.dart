@@ -1,5 +1,4 @@
 import 'package:care_paw/data/database.dart';
-import 'package:care_paw/main.dart';
 import 'package:flutter/foundation.dart';
 
 import '../model/animal.dart';
