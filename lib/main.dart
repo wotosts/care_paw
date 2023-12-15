@@ -1,3 +1,4 @@
+import 'package:care_paw/feature/components/LoadingController.dart';
 import 'package:care_paw/feature/route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
       theme: _getCarePawTheme(),
       home: const SplashScreen(),
       onGenerateRoute: routes,
+      builder: (context, widget) => CPLoading(widget: widget),
     );
   }
 }
