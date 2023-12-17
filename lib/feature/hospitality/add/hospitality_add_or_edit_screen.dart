@@ -69,6 +69,7 @@ class _HospitalityAddOrEditScreenState
     var margin = const SizedSpacer(
       height: 22,
     );
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(),
@@ -188,7 +189,9 @@ class _HospitalityAddOrEditScreenState
                     child: FilledButton(
                       onPressed: _isButtonEnabled(
                               ref.watch(hospitalityAddOrEditViewModelProvider))
-                          ? () {}
+                          ? () {
+                              viewModel.createHospitalization();
+                            }
                           : null,
                       child: Text('저장하기'),
                     )))

@@ -121,9 +121,6 @@ class _HospitalityDetailScreenState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedSpacer(
-          height: 28,
-        ),
         Row(
           children: [
             SizedBox(width: 88, height: 88, child: Placeholder()),
@@ -195,6 +192,7 @@ class _HospitalityDetailScreenState
             nickname: '먼지쌤',
             email: '',
             occupation: '',
+            hospitalId: 0
           ))),
       HospitalityDetailHistoryNoteItem(HospitalizationHistoryNote(
           id: 0,
@@ -204,6 +202,7 @@ class _HospitalityDetailScreenState
             nickname: '먼지쌤',
             email: '',
             occupation: '',
+            hospitalId: 0
           ))),
       HospitalityDetailHistoryNoteItem(HospitalizationHistoryNote(
           id: 0,
@@ -215,6 +214,7 @@ class _HospitalityDetailScreenState
             nickname: '먼지쌤',
             email: '',
             occupation: '',
+            hospitalId: 0
           ))),
       HospitalityDetailHistoryNoteItem(HospitalizationHistoryNote(
           id: 0,
@@ -224,6 +224,7 @@ class _HospitalityDetailScreenState
             nickname: '먼지쌤',
             email: '',
             occupation: '',
+            hospitalId: 0
           ))),
       HospitalityDetailHistoryNoteItem(HospitalizationHistoryNote(
           id: 0,
@@ -233,6 +234,7 @@ class _HospitalityDetailScreenState
             nickname: '먼지쌤',
             email: '',
             occupation: '',
+            hospitalId: 0
           )))
     ];
     var colors = Theme.of(context).colorScheme;
@@ -304,30 +306,28 @@ class _HospitalityDetailScreenState
               )),
         ],
       ),
-      body: Container(
-        padding: const EdgeInsets.only(left: 16, right: 16),
-        child: ListView.separated(
-            itemCount: items.length,
-            separatorBuilder: (context, i) => const SizedBox(
-                  height: 14,
-                ),
-            itemBuilder: (context, i) => switch (items[i]) {
-                  HospitalityDetailAnimalItem item =>
-                    _buildAnimal(item.animal, item.startDate, item.endDate),
-                  HospitalityDetailHistoryNoteItem item =>
-                    HospitalityHistoryNoteItem(
-                      item: item.note,
-                    ),
-                  HospitalityDetailDividerItem() => Container(
-                      padding: const EdgeInsets.symmetric(vertical: 18),
-                      child: const Divider()),
-                  HospitalityDetailTitleItem item => Text(item.title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall
-                          ?.copyWith(fontWeight: FontWeight.bold)),
-                }),
-      ),
+      body: ListView.separated(
+          itemCount: items.length,
+          padding: const EdgeInsets.only(bottom: 32, top: 28, left: 16, right: 16),
+          separatorBuilder: (context, i) => const SizedBox(
+                height: 14,
+              ),
+          itemBuilder: (context, i) => switch (items[i]) {
+                HospitalityDetailAnimalItem item =>
+                  _buildAnimal(item.animal, item.startDate, item.endDate),
+                HospitalityDetailHistoryNoteItem item =>
+                  HospitalityHistoryNoteItem(
+                    item: item.note,
+                  ),
+                HospitalityDetailDividerItem() => Container(
+                    padding: const EdgeInsets.symmetric(vertical: 18),
+                    child: const Divider()),
+                HospitalityDetailTitleItem item => Text(item.title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall
+                        ?.copyWith(fontWeight: FontWeight.bold)),
+              }),
     );
   }
 }
