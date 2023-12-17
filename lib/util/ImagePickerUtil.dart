@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:image_picker/image_picker.dart';
 
 class ImagePickerUtil {
@@ -16,5 +18,11 @@ class ImagePickerUtil {
   Future<List<XFile?>> selectImages() async {
     final picked = await _picker.pickMultiImage();
     return picked;
+  }
+}
+
+extension XFileExtension on XFile {
+  File toFile() {
+    return File(path);
   }
 }
