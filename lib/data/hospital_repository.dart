@@ -1,4 +1,6 @@
 import 'package:care_paw/data/database.dart';
+import 'package:care_paw/data/dto/AnimalDto.dart';
+import 'package:care_paw/data/dto/HospitalizationDto.dart';
 import 'package:flutter/foundation.dart';
 
 import '../model/animal.dart';
@@ -7,60 +9,27 @@ import '../model/hospitalization.dart';
 
 abstract class HospitalRepository {
   Future<List<Hospital>> getHospitals();
+
+  Future<List<Hospitalization>> getTodayHospitalization(int hospitalId);
+
+  Future<int> createHospitalization(
+      int animalId, int hospitalId, DateTime startDate, DateTime? endDate);
+
+  Future<int> createAnimal(Animal animal, int hospitalId);
 }
 
 class HospitalRepositoryImpl extends HospitalRepository {
-  Future<List<Hospitalization>> _getTodayHospitalizationHistories() async {
-    return [
-      Hospitalization(
-          id: 0,
-          animal: Animal(
-              id: 0,
-              name: '먼지',
-              species: '개',
-              birth: DateTime.parse('2016-08-10'),
-              gender: '중성화',
-              note: '침많이흘림 질질질질'),
-          isBookmarked: false,
-          hospitalizationStartDate: DateTime.parse('2023-11-27'),
-          hospitalizationEndDate: DateTime.parse('2023-12-15')),
-      Hospitalization(
-        id: 1,
-        animal: Animal(
-            id: 1,
-            name: '까미',
-            species: '개',
-            birth: DateTime.parse('2012-08-10'),
-            gender: '수컷',
-            note: '짱쎔'),
-        isBookmarked: true,
-        hospitalizationStartDate: DateTime.parse('2023-11-27'),
-      ),
-      Hospitalization(
-          id: 2,
-          animal: Animal(
-            id: 2,
-            name: '먀먀',
-            species: '고양이',
-            birth: DateTime.parse('2020-11-10'),
-            gender: '중성화',
-          ),
-          isBookmarked: true,
-          hospitalizationStartDate: DateTime.parse('2023-11-27'),
-          hospitalizationEndDate: DateTime.parse('2023-12-15')),
-      Hospitalization(
-        id: 3,
-        animal: Animal(
-            id: 3,
-            name: '퐝당',
-            species: '새',
-            birth: DateTime.parse('2020-03-05'),
-            gender: '수컷',
-            note: '겁나 시끄러움'),
-        isBookmarked: false,
-        hospitalizationStartDate: DateTime.parse('2023-11-27'),
-      )
-    ];
+  @override
+  Future<List<Hospitalization>> getTodayHospitalization(int hospitalId) async {
+    var list = await supabase
+        .from(DBTable.Hospitalization.name)
+        .select<List<Map<String, dynamic>>>(
+            '*. ${DBTable.Animal.name}!inner(*)')
+        .eq('hospital_id', hospitalId);
+    return [];
+    //   list.map((e) {
+    //   return Hospitalization(id: id, animal: animal, isBookmarked: isBookmarked, hospitalizationStartDate: hospitalizationStartDate);
+    // }).toList();
   }
 
   @override
@@ -74,5 +43,46 @@ class HospitalRepositoryImpl extends HospitalRepository {
     }
 
     return list.map((e) => Hospital.fromJson(e)).toList();
+  }
+
+  @override
+  Future<int> createHospitalization(int animalId, int hospitalId,
+      DateTime startDate, DateTime? endDate) async {
+    var hospitalizationDto = HospitalizationDto(
+      id: 0,
+      animal_id: animalId,
+      hospital_id: hospitalId,
+      start_date: startDate,
+      end_date: endDate,
+    );
+
+    return supabase
+        .from(DBTable.Hospitalization.name)
+        .insert(hospitalizationDto.toInsertObject())
+        .select()
+        .single()
+        .then((value) => HospitalizationDto.fromJson(value).id);
+  }
+
+  @override
+  Future<int> createAnimal(Animal animal, int hospitalId) async {
+    var animalDto = AnimalDto(
+        id: animal.id,
+        name: animal.name,
+        species: animal.species,
+        birth: animal.birth,
+        gender: animal.gender,
+        note: animal.note,
+        img_url: animal.imgUrl,
+        hospital_id: hospitalId);
+
+    var addedAnimalDto = await supabase
+        .from(DBTable.Animal.name)
+        .insert(animalDto.toInsertObject())
+        .select()
+        .single()
+        .then((value) => AnimalDto.fromJson(value));
+
+    return addedAnimalDto.id;
   }
 }
