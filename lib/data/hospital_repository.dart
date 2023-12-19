@@ -10,7 +10,8 @@ import '../model/hospitalization.dart';
 abstract class HospitalRepository {
   Future<List<Hospital>> getHospitals();
 
-  Future<List<Hospitalization>> getTodayHospitalization(int hospitalId);
+  Future<List<Hospitalization>> getTodayHospitalization(
+      int hospitalId, String userId);
 
   Future<int> createHospitalization(
       int animalId, int hospitalId, DateTime startDate, DateTime? endDate);
@@ -20,16 +21,31 @@ abstract class HospitalRepository {
 
 class HospitalRepositoryImpl extends HospitalRepository {
   @override
-  Future<List<Hospitalization>> getTodayHospitalization(int hospitalId) async {
+  Future<List<Hospitalization>> getTodayHospitalization(
+      int hospitalId, String userId) async {
     var list = await supabase
         .from(DBTable.Hospitalization.name)
         .select<List<Map<String, dynamic>>>(
-            '*. ${DBTable.Animal.name}!inner(*)')
+            '*, ${DBTable.Animal.name}(*)')
         .eq('hospital_id', hospitalId);
-    return [];
-    //   list.map((e) {
-    //   return Hospitalization(id: id, animal: animal, isBookmarked: isBookmarked, hospitalizationStartDate: hospitalizationStartDate);
-    // }).toList();
+    var bookmarked = await supabase
+        .from(DBTable.Bookmark.name)
+        .select<List<Map<String, dynamic>>>()
+        .eq('user_id', userId)
+        .then((value) => value.map((e) => e['hospitalization_id']).toSet());
+
+    return list.map((e) {
+      var dto = HospitalizationDto.fromJson(e);
+      print(e.toString());
+      var animal = AnimalDto.fromJson(e[DBTable.Animal.name]).toDomainObject();
+
+      return Hospitalization(
+          id: dto.id,
+          animal: animal,
+          isBookmarked: bookmarked.contains(dto.id),
+          hospitalizationStartDate: dto.start_date,
+          hospitalizationEndDate: dto.end_date);
+    }).toList();
   }
 
   @override
