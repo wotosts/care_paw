@@ -23,10 +23,11 @@ class ImageRepositoryImpl extends ImageRepository {
   /// 네이밍 규칙
   /// bucket_업로드날짜_파일명
   /// file name = 병원id_동물이름_분류_생일
+  /// 파일명에 한글 포함 불가능
   @override
   Future<String> uploadImage(Bucket bucket, File file, String name) async {
-    // todo 이미지 이름 관련 오류 확인
-    var uploadName = '${bucket}_${DateTime.now()}_$name.${extension(file.path)}';
+    var uploadName =
+        '${bucket.name}_${DateTime.now()}_${name.hashCode}${extension(file.path)}';
 
     if (kDebugMode) {
       print(uploadName);
@@ -34,7 +35,7 @@ class ImageRepositoryImpl extends ImageRepository {
 
     final String path = await supabase.storage
         .from('${bucket.name}_image')
-        .upload('${bucket}_${DateTime.now()}_$name${extension(file.path)}', file);
+        .upload(uploadName, file);
 
     return path;
   }
