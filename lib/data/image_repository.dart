@@ -11,6 +11,8 @@ abstract class ImageRepository {
   Future<String> uploadImage(Bucket bucket, File file, String name);
 
   Future<void> deleteImage(String path);
+
+  Future<String> getUrl(Bucket bucket, String name);
 }
 
 class ImageRepositoryImpl extends ImageRepository {
@@ -38,5 +40,12 @@ class ImageRepositoryImpl extends ImageRepository {
         .upload(uploadName, file);
 
     return path;
+  }
+
+  @override
+  Future<String> getUrl(Bucket bucket, String name) async {
+    return supabase.storage
+        .from('${bucket.name}_image')
+        .getPublicUrl(name);
   }
 }
