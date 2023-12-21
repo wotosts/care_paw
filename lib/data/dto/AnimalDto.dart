@@ -1,6 +1,6 @@
-import 'dart:convert';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../model/animal.dart';
 
 part 'AnimalDto.g.dart';
 
@@ -32,4 +32,13 @@ extension AnimalDtoExtension on AnimalDto {
         "img_url": img_url,
         "hospital_id": hospital_id
       };
+
+  Animal toDomainObject() => Animal(
+      id: id,
+      name: name,
+      species: Species.values.byName(species),
+      birth: birth,
+      gender: Gender.values.byName(gender),
+      note: note,
+      imgUrl: img_url);
 }

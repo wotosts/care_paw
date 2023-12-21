@@ -8,9 +8,9 @@ class Animal with _$Animal {
   factory Animal(
       {required final int id,
       required final String name,
-      required final String species,
+      required final Species species,
       required final DateTime birth,
-      required final String gender,
+      required final Gender gender,
       final String? note,
       final String? imgUrl}) = _Animal;
 }

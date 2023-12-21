@@ -36,7 +36,6 @@ class HospitalRepositoryImpl extends HospitalRepository {
 
     return list.map((e) {
       var dto = HospitalizationDto.fromJson(e);
-      print(e.toString());
       var animal = AnimalDto.fromJson(e[DBTable.Animal.name]).toDomainObject();
 
       return Hospitalization(
@@ -85,9 +84,9 @@ class HospitalRepositoryImpl extends HospitalRepository {
     var animalDto = AnimalDto(
         id: animal.id,
         name: animal.name,
-        species: animal.species,
+        species: animal.species.name,
         birth: animal.birth,
-        gender: animal.gender,
+        gender: animal.gender.name,
         note: animal.note,
         img_url: animal.imgUrl,
         hospital_id: hospitalId);

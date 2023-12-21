@@ -18,9 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Animal {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get species => throw _privateConstructorUsedError;
+  Species get species => throw _privateConstructorUsedError;
   DateTime get birth => throw _privateConstructorUsedError;
-  String get gender => throw _privateConstructorUsedError;
+  Gender get gender => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
   String? get imgUrl => throw _privateConstructorUsedError;
 
@@ -36,9 +36,9 @@ abstract class $AnimalCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      String species,
+      Species species,
       DateTime birth,
-      String gender,
+      Gender gender,
       String? note,
       String? imgUrl});
 }
@@ -76,7 +76,7 @@ class _$AnimalCopyWithImpl<$Res, $Val extends Animal>
       species: null == species
           ? _value.species
           : species // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Species,
       birth: null == birth
           ? _value.birth
           : birth // ignore: cast_nullable_to_non_nullable
@@ -84,7 +84,7 @@ class _$AnimalCopyWithImpl<$Res, $Val extends Animal>
       gender: null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Gender,
       note: freezed == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -107,9 +107,9 @@ abstract class _$$AnimalImplCopyWith<$Res> implements $AnimalCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
-      String species,
+      Species species,
       DateTime birth,
-      String gender,
+      Gender gender,
       String? note,
       String? imgUrl});
 }
@@ -145,7 +145,7 @@ class __$$AnimalImplCopyWithImpl<$Res>
       species: null == species
           ? _value.species
           : species // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Species,
       birth: null == birth
           ? _value.birth
           : birth // ignore: cast_nullable_to_non_nullable
@@ -153,7 +153,7 @@ class __$$AnimalImplCopyWithImpl<$Res>
       gender: null == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Gender,
       note: freezed == note
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -183,11 +183,11 @@ class _$AnimalImpl with DiagnosticableTreeMixin implements _Animal {
   @override
   final String name;
   @override
-  final String species;
+  final Species species;
   @override
   final DateTime birth;
   @override
-  final String gender;
+  final Gender gender;
   @override
   final String? note;
   @override
@@ -241,9 +241,9 @@ abstract class _Animal implements Animal {
   factory _Animal(
       {required final int id,
       required final String name,
-      required final String species,
+      required final Species species,
       required final DateTime birth,
-      required final String gender,
+      required final Gender gender,
       final String? note,
       final String? imgUrl}) = _$AnimalImpl;
 
@@ -252,11 +252,11 @@ abstract class _Animal implements Animal {
   @override
   String get name;
   @override
-  String get species;
+  Species get species;
   @override
   DateTime get birth;
   @override
-  String get gender;
+  Gender get gender;
   @override
   String? get note;
   @override

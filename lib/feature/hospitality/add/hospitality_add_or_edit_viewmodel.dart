@@ -80,14 +80,14 @@ class HospitalityAddOrEditViewModel
       var url = await imageRepository.uploadImage(
           Bucket.animal,
           state.image!.toFile(),
-          '${hospitalId}_${state.animalName}_${state.species}_${state.birth}');
+          '${hospitalId}_${state.animalName}_${state.species?.name}_${state.birth}');
       var animal = Animal(
           // todo 기존 동물 검색 기능 추가 시 id 업데이트
           id: 0,
           name: state.animalName.orEmpty(),
-          species: state.species?.name ?? '',
+          species: state.species ?? Species.etc,
           birth: state.birth ?? DateTime.now(),
-          gender: state.gender?.name ?? '',
+          gender: state.gender ?? Gender.neutral,
           imgUrl: url);
       var animalId = await hospitalRepository.createAnimal(animal, hospitalId!);
 
