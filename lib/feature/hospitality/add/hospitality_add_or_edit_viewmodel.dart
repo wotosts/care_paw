@@ -97,6 +97,8 @@ class HospitalityAddOrEditViewModel
           state.hospitalizationStartDate ?? DateTime.now(),
           state.hospitalizationEndDate);
 
+      state = state.copyWith(effect: HAOECompleteEffect());
+
       return hospitalizationId;
     } on Exception catch (_, e) {
       if (kDebugMode) {

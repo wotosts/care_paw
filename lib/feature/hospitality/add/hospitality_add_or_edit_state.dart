@@ -17,13 +17,9 @@ class HospitalityAddOrEditState with _$HospitalityAddOrEditState {
       Species? species,
       Gender? gender,
       XFile? image,
-      HospitalityAddOrEditEvent? event}) = _HospitalityAddOrEditState;
+      HospitalityAddOrEditEffect? effect}) = _HospitalityAddOrEditState;
 }
 
-sealed class HospitalityAddOrEditEvent {}
+sealed class HospitalityAddOrEditEffect {}
 
-class HAOELoadingEvent extends HospitalityAddOrEditEvent {
-  final bool isLoading;
-
-  HAOELoadingEvent(this.isLoading);
-}
+class HAOECompleteEffect extends HospitalityAddOrEditEffect {}

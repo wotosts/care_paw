@@ -25,7 +25,7 @@ mixin _$HospitalityAddOrEditState {
   Species? get species => throw _privateConstructorUsedError;
   Gender? get gender => throw _privateConstructorUsedError;
   XFile? get image => throw _privateConstructorUsedError;
-  HospitalityAddOrEditEvent? get event => throw _privateConstructorUsedError;
+  HospitalityAddOrEditEffect? get effect => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HospitalityAddOrEditStateCopyWith<HospitalityAddOrEditState> get copyWith =>
@@ -48,7 +48,7 @@ abstract class $HospitalityAddOrEditStateCopyWith<$Res> {
       Species? species,
       Gender? gender,
       XFile? image,
-      HospitalityAddOrEditEvent? event});
+      HospitalityAddOrEditEffect? effect});
 }
 
 /// @nodoc
@@ -74,7 +74,7 @@ class _$HospitalityAddOrEditStateCopyWithImpl<$Res,
     Object? species = freezed,
     Object? gender = freezed,
     Object? image = freezed,
-    Object? event = freezed,
+    Object? effect = freezed,
   }) {
     return _then(_value.copyWith(
       hospitalizationId: freezed == hospitalizationId
@@ -113,10 +113,10 @@ class _$HospitalityAddOrEditStateCopyWithImpl<$Res,
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as XFile?,
-      event: freezed == event
-          ? _value.event
-          : event // ignore: cast_nullable_to_non_nullable
-              as HospitalityAddOrEditEvent?,
+      effect: freezed == effect
+          ? _value.effect
+          : effect // ignore: cast_nullable_to_non_nullable
+              as HospitalityAddOrEditEffect?,
     ) as $Val);
   }
 }
@@ -140,7 +140,7 @@ abstract class _$$HospitalityAddOrEditStateImplCopyWith<$Res>
       Species? species,
       Gender? gender,
       XFile? image,
-      HospitalityAddOrEditEvent? event});
+      HospitalityAddOrEditEffect? effect});
 }
 
 /// @nodoc
@@ -165,7 +165,7 @@ class __$$HospitalityAddOrEditStateImplCopyWithImpl<$Res>
     Object? species = freezed,
     Object? gender = freezed,
     Object? image = freezed,
-    Object? event = freezed,
+    Object? effect = freezed,
   }) {
     return _then(_$HospitalityAddOrEditStateImpl(
       hospitalizationId: freezed == hospitalizationId
@@ -204,10 +204,10 @@ class __$$HospitalityAddOrEditStateImplCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as XFile?,
-      event: freezed == event
-          ? _value.event
-          : event // ignore: cast_nullable_to_non_nullable
-              as HospitalityAddOrEditEvent?,
+      effect: freezed == effect
+          ? _value.effect
+          : effect // ignore: cast_nullable_to_non_nullable
+              as HospitalityAddOrEditEffect?,
     ));
   }
 }
@@ -225,7 +225,7 @@ class _$HospitalityAddOrEditStateImpl implements _HospitalityAddOrEditState {
       this.species,
       this.gender,
       this.image,
-      this.event});
+      this.effect});
 
   @override
   final int? hospitalizationId;
@@ -246,11 +246,11 @@ class _$HospitalityAddOrEditStateImpl implements _HospitalityAddOrEditState {
   @override
   final XFile? image;
   @override
-  final HospitalityAddOrEditEvent? event;
+  final HospitalityAddOrEditEffect? effect;
 
   @override
   String toString() {
-    return 'HospitalityAddOrEditState(hospitalizationId: $hospitalizationId, birth: $birth, hospitalizationStartDate: $hospitalizationStartDate, hospitalizationEndDate: $hospitalizationEndDate, animalName: $animalName, note: $note, species: $species, gender: $gender, image: $image, event: $event)';
+    return 'HospitalityAddOrEditState(hospitalizationId: $hospitalizationId, birth: $birth, hospitalizationStartDate: $hospitalizationStartDate, hospitalizationEndDate: $hospitalizationEndDate, animalName: $animalName, note: $note, species: $species, gender: $gender, image: $image, effect: $effect)';
   }
 
   @override
@@ -272,7 +272,7 @@ class _$HospitalityAddOrEditStateImpl implements _HospitalityAddOrEditState {
             (identical(other.species, species) || other.species == species) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.image, image) || other.image == image) &&
-            (identical(other.event, event) || other.event == event));
+            (identical(other.effect, effect) || other.effect == effect));
   }
 
   @override
@@ -287,7 +287,7 @@ class _$HospitalityAddOrEditStateImpl implements _HospitalityAddOrEditState {
       species,
       gender,
       image,
-      event);
+      effect);
 
   @JsonKey(ignore: true)
   @override
@@ -308,7 +308,7 @@ abstract class _HospitalityAddOrEditState implements HospitalityAddOrEditState {
           final Species? species,
           final Gender? gender,
           final XFile? image,
-          final HospitalityAddOrEditEvent? event}) =
+          final HospitalityAddOrEditEffect? effect}) =
       _$HospitalityAddOrEditStateImpl;
 
   @override
@@ -330,7 +330,7 @@ abstract class _HospitalityAddOrEditState implements HospitalityAddOrEditState {
   @override
   XFile? get image;
   @override
-  HospitalityAddOrEditEvent? get event;
+  HospitalityAddOrEditEffect? get effect;
   @override
   @JsonKey(ignore: true)
   _$$HospitalityAddOrEditStateImplCopyWith<_$HospitalityAddOrEditStateImpl>

@@ -66,6 +66,16 @@ class _HospitalityAddOrEditScreenState
     _endDateController.text =
         watchProvider((value) => value.hospitalizationEndDate.toDateString());
 
+    ref.listen(hospitalityAddOrEditViewModelProvider, (previous, next) {
+      switch (next.effect) {
+        case HAOECompleteEffect() :
+          Navigator.of(context).pop();
+          break;
+        case null:
+          break;
+      }
+    });
+
     var margin = const SizedSpacer(
       height: 22,
     );
