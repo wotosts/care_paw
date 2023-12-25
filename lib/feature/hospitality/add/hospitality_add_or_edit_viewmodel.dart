@@ -88,6 +88,7 @@ class HospitalityAddOrEditViewModel
           species: state.species ?? Species.etc,
           birth: state.birth ?? DateTime.now(),
           gender: state.gender ?? Gender.neutral,
+          note: state.note,
           imgUrl: url);
       var animalId = await hospitalRepository.createAnimal(animal, hospitalId!);
 
