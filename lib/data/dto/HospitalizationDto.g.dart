@@ -13,6 +13,9 @@ _$HospitalizationDtoImpl _$$HospitalizationDtoImplFromJson(
       animal_id: json['animal_id'] as int,
       hospital_id: json['hospital_id'] as int,
       start_date: DateTime.parse(json['start_date'] as String),
+      animal: json['Animal'] == null
+          ? null
+          : AnimalDto.fromJson(json['Animal'] as Map<String, dynamic>),
       end_date: json['end_date'] == null
           ? null
           : DateTime.parse(json['end_date'] as String),
@@ -26,6 +29,7 @@ Map<String, dynamic> _$$HospitalizationDtoImplToJson(
       'animal_id': instance.animal_id,
       'hospital_id': instance.hospital_id,
       'start_date': instance.start_date.toIso8601String(),
+      'Animal': instance.animal,
       'end_date': instance.end_date?.toIso8601String(),
       'notes': instance.notes,
     };

@@ -24,6 +24,8 @@ mixin _$HospitalizationDto {
   int get animal_id => throw _privateConstructorUsedError;
   int get hospital_id => throw _privateConstructorUsedError;
   DateTime get start_date => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Animal')
+  AnimalDto? get animal => throw _privateConstructorUsedError;
   DateTime? get end_date => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
 
@@ -44,8 +46,11 @@ abstract class $HospitalizationDtoCopyWith<$Res> {
       int animal_id,
       int hospital_id,
       DateTime start_date,
+      @JsonKey(name: 'Animal') AnimalDto? animal,
       DateTime? end_date,
       String? notes});
+
+  $AnimalDtoCopyWith<$Res>? get animal;
 }
 
 /// @nodoc
@@ -65,6 +70,7 @@ class _$HospitalizationDtoCopyWithImpl<$Res, $Val extends HospitalizationDto>
     Object? animal_id = null,
     Object? hospital_id = null,
     Object? start_date = null,
+    Object? animal = freezed,
     Object? end_date = freezed,
     Object? notes = freezed,
   }) {
@@ -85,6 +91,10 @@ class _$HospitalizationDtoCopyWithImpl<$Res, $Val extends HospitalizationDto>
           ? _value.start_date
           : start_date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      animal: freezed == animal
+          ? _value.animal
+          : animal // ignore: cast_nullable_to_non_nullable
+              as AnimalDto?,
       end_date: freezed == end_date
           ? _value.end_date
           : end_date // ignore: cast_nullable_to_non_nullable
@@ -94,6 +104,18 @@ class _$HospitalizationDtoCopyWithImpl<$Res, $Val extends HospitalizationDto>
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AnimalDtoCopyWith<$Res>? get animal {
+    if (_value.animal == null) {
+      return null;
+    }
+
+    return $AnimalDtoCopyWith<$Res>(_value.animal!, (value) {
+      return _then(_value.copyWith(animal: value) as $Val);
+    });
   }
 }
 
@@ -110,8 +132,12 @@ abstract class _$$HospitalizationDtoImplCopyWith<$Res>
       int animal_id,
       int hospital_id,
       DateTime start_date,
+      @JsonKey(name: 'Animal') AnimalDto? animal,
       DateTime? end_date,
       String? notes});
+
+  @override
+  $AnimalDtoCopyWith<$Res>? get animal;
 }
 
 /// @nodoc
@@ -129,6 +155,7 @@ class __$$HospitalizationDtoImplCopyWithImpl<$Res>
     Object? animal_id = null,
     Object? hospital_id = null,
     Object? start_date = null,
+    Object? animal = freezed,
     Object? end_date = freezed,
     Object? notes = freezed,
   }) {
@@ -149,6 +176,10 @@ class __$$HospitalizationDtoImplCopyWithImpl<$Res>
           ? _value.start_date
           : start_date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      animal: freezed == animal
+          ? _value.animal
+          : animal // ignore: cast_nullable_to_non_nullable
+              as AnimalDto?,
       end_date: freezed == end_date
           ? _value.end_date
           : end_date // ignore: cast_nullable_to_non_nullable
@@ -169,6 +200,7 @@ class _$HospitalizationDtoImpl implements _HospitalizationDto {
       required this.animal_id,
       required this.hospital_id,
       required this.start_date,
+      @JsonKey(name: 'Animal') required this.animal,
       this.end_date,
       this.notes});
 
@@ -185,13 +217,16 @@ class _$HospitalizationDtoImpl implements _HospitalizationDto {
   @override
   final DateTime start_date;
   @override
+  @JsonKey(name: 'Animal')
+  final AnimalDto? animal;
+  @override
   final DateTime? end_date;
   @override
   final String? notes;
 
   @override
   String toString() {
-    return 'HospitalizationDto(id: $id, animal_id: $animal_id, hospital_id: $hospital_id, start_date: $start_date, end_date: $end_date, notes: $notes)';
+    return 'HospitalizationDto(id: $id, animal_id: $animal_id, hospital_id: $hospital_id, start_date: $start_date, animal: $animal, end_date: $end_date, notes: $notes)';
   }
 
   @override
@@ -206,6 +241,7 @@ class _$HospitalizationDtoImpl implements _HospitalizationDto {
                 other.hospital_id == hospital_id) &&
             (identical(other.start_date, start_date) ||
                 other.start_date == start_date) &&
+            (identical(other.animal, animal) || other.animal == animal) &&
             (identical(other.end_date, end_date) ||
                 other.end_date == end_date) &&
             (identical(other.notes, notes) || other.notes == notes));
@@ -213,8 +249,8 @@ class _$HospitalizationDtoImpl implements _HospitalizationDto {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, animal_id, hospital_id, start_date, end_date, notes);
+  int get hashCode => Object.hash(runtimeType, id, animal_id, hospital_id,
+      start_date, animal, end_date, notes);
 
   @JsonKey(ignore: true)
   @override
@@ -237,6 +273,7 @@ abstract class _HospitalizationDto implements HospitalizationDto {
       required final int animal_id,
       required final int hospital_id,
       required final DateTime start_date,
+      @JsonKey(name: 'Animal') required final AnimalDto? animal,
       final DateTime? end_date,
       final String? notes}) = _$HospitalizationDtoImpl;
 
@@ -251,6 +288,9 @@ abstract class _HospitalizationDto implements HospitalizationDto {
   int get hospital_id;
   @override
   DateTime get start_date;
+  @override
+  @JsonKey(name: 'Animal')
+  AnimalDto? get animal;
   @override
   DateTime? get end_date;
   @override
