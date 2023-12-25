@@ -1,3 +1,4 @@
+import 'package:care_paw/util/EmptyExtensions.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../model/user.dart' as CPUser;
@@ -22,6 +23,7 @@ class UserRepositoryImpl extends UserRepository {
       supabase.auth.onAuthStateChange.map((event) {
         var raw = event.session?.user;
         return CPUser.User(
+            id: raw?.id ?? '',
             email: raw?.email ?? '',
             nickname: raw?.userMetadata?['nickname'],
             occupation: raw?.userMetadata?['occupation'],

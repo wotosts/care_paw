@@ -16,6 +16,7 @@ class User with _$User {
   factory User(
       {
       // primary key
+      required String id,
       required String email,
       required String nickname,
       // 직책
