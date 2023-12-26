@@ -12,7 +12,7 @@ abstract class ImageRepository {
 
   Future<void> deleteImage(String path);
 
-  Future<String> getUrl(Bucket bucket, String name);
+  Future<String> getUrl(Bucket bucket, String? name);
 }
 
 class ImageRepositoryImpl extends ImageRepository {
@@ -29,7 +29,8 @@ class ImageRepositoryImpl extends ImageRepository {
   @override
   Future<String> uploadImage(Bucket bucket, File file, String name) async {
     var uploadName =
-        '${bucket.name}_${DateTime.now()}_${name.hashCode}${extension(file.path)}';
+        '${bucket.name}_${DateTime.now()}_${name.hashCode}${extension(
+        file.path)}';
 
     if (kDebugMode) {
       print(uploadName);
@@ -43,9 +44,13 @@ class ImageRepositoryImpl extends ImageRepository {
   }
 
   @override
-  Future<String> getUrl(Bucket bucket, String name) async {
-    return supabase.storage
-        .from('${bucket.name}_image')
-        .getPublicUrl(name);
+  Future<String> getUrl(Bucket bucket, String? name) async {
+    if (name == null) {
+      return '';
+    } else {
+      return supabase.storage
+          .from('${bucket.name}_image')
+          .getPublicUrl(name);
+    }
   }
 }

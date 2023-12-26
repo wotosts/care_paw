@@ -8,7 +8,7 @@ import '../../data/image_repository.dart';
 
 /// supabase image
 class SBImage extends ConsumerWidget {
-  final String url;
+  final String? url;
 
   const SBImage({required this.url});
 
@@ -23,7 +23,7 @@ class SBImage extends ConsumerWidget {
         clipBehavior: Clip.antiAlias,
         child: Center(
             child: FutureBuilder(
-                future: imageRepository.getUrl(Bucket.animal, basename(url)),
+                future: imageRepository.getUrl(Bucket.animal, basename(url.orEmpty())),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return Container(
