@@ -13,7 +13,7 @@ var routes = (RouteSettings settings) => MaterialPageRoute(
           RoutePath.home => const HomeScreen(),
           RoutePath.addAnimal => const HospitalityAddOrEditScreen(),
           RoutePath.hospitalizationDetail =>
-            HospitalityDetailScreen(animalId: settings.arguments as int)
+            HospitalityDetailScreen(id: settings.arguments as int)
         },
     settings: settings);
 
