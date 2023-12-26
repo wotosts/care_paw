@@ -3,4 +3,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 enum DBTable {
   Hospital,
   Animal,
-}final supabase = Supabase.instance.client;
+  Hospitalization,
+  HospitalizationNote,
+  Bookmark
+}
+
+final supabase = Supabase.instance.client;

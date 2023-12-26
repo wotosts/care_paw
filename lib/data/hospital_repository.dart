@@ -17,6 +17,8 @@ abstract class HospitalRepository {
       int animalId, int hospitalId, DateTime startDate, DateTime? endDate);
 
   Future<int> createAnimal(Animal animal, int hospitalId);
+
+  Future<Hospitalization?> getHospitalization(int id, String userId);
 }
 
 class HospitalRepositoryImpl extends HospitalRepository {
@@ -94,5 +96,29 @@ class HospitalRepositoryImpl extends HospitalRepository {
         .then((value) => AnimalDto.fromJson(value));
 
     return addedAnimalDto.id;
+  }
+
+  @override
+  Future<Hospitalization?> getHospitalization(int id, String userId) async {
+    var (dto, bookmarked) = await (
+      supabase
+          .from(DBTable.Hospitalization.name)
+          .select('*, ${DBTable.Animal.name}(*)')
+          .eq('id', id)
+          .maybeSingle()
+          .onError((error, stackTrace) => null)
+          .then((value) =>
+              value == null ? null : HospitalizationDto.fromJson(value)),
+      supabase
+          .from(DBTable.Bookmark.name)
+          .select()
+          .eq('user_id', userId)
+          .eq('hospitalization_id', id)
+          .maybeSingle()
+          .onError((error, stackTrace) => false)
+          .then((value) => value != null)
+    ).wait;
+
+    return dto?.toDomainObject(bookmarked);
   }
 }
