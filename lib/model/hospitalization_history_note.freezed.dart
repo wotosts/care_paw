@@ -19,7 +19,7 @@ mixin _$HospitalizationHistoryNote {
   int get id => throw _privateConstructorUsedError;
   DateTime get added => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  User get user => throw _privateConstructorUsedError;
+  String get userNickname => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   List<String>? get imgUrls => throw _privateConstructorUsedError;
 
@@ -39,11 +39,9 @@ abstract class $HospitalizationHistoryNoteCopyWith<$Res> {
       {int id,
       DateTime added,
       String title,
-      User user,
+      String userNickname,
       String? description,
       List<String>? imgUrls});
-
-  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -63,7 +61,7 @@ class _$HospitalizationHistoryNoteCopyWithImpl<$Res,
     Object? id = null,
     Object? added = null,
     Object? title = null,
-    Object? user = null,
+    Object? userNickname = null,
     Object? description = freezed,
     Object? imgUrls = freezed,
   }) {
@@ -80,10 +78,10 @@ class _$HospitalizationHistoryNoteCopyWithImpl<$Res,
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
+      userNickname: null == userNickname
+          ? _value.userNickname
+          : userNickname // ignore: cast_nullable_to_non_nullable
+              as String,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -93,14 +91,6 @@ class _$HospitalizationHistoryNoteCopyWithImpl<$Res,
           : imgUrls // ignore: cast_nullable_to_non_nullable
               as List<String>?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res> get user {
-    return $UserCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
-    });
   }
 }
 
@@ -117,12 +107,9 @@ abstract class _$$HospitalizationHistoryNoteImplCopyWith<$Res>
       {int id,
       DateTime added,
       String title,
-      User user,
+      String userNickname,
       String? description,
       List<String>? imgUrls});
-
-  @override
-  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -141,7 +128,7 @@ class __$$HospitalizationHistoryNoteImplCopyWithImpl<$Res>
     Object? id = null,
     Object? added = null,
     Object? title = null,
-    Object? user = null,
+    Object? userNickname = null,
     Object? description = freezed,
     Object? imgUrls = freezed,
   }) {
@@ -158,10 +145,10 @@ class __$$HospitalizationHistoryNoteImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
+      userNickname: null == userNickname
+          ? _value.userNickname
+          : userNickname // ignore: cast_nullable_to_non_nullable
+              as String,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -181,7 +168,7 @@ class _$HospitalizationHistoryNoteImpl implements _HospitalizationHistoryNote {
       {required this.id,
       required this.added,
       required this.title,
-      required this.user,
+      required this.userNickname,
       this.description,
       final List<String>? imgUrls})
       : _imgUrls = imgUrls;
@@ -193,7 +180,7 @@ class _$HospitalizationHistoryNoteImpl implements _HospitalizationHistoryNote {
   @override
   final String title;
   @override
-  final User user;
+  final String userNickname;
   @override
   final String? description;
   final List<String>? _imgUrls;
@@ -208,7 +195,7 @@ class _$HospitalizationHistoryNoteImpl implements _HospitalizationHistoryNote {
 
   @override
   String toString() {
-    return 'HospitalizationHistoryNote(id: $id, added: $added, title: $title, user: $user, description: $description, imgUrls: $imgUrls)';
+    return 'HospitalizationHistoryNote(id: $id, added: $added, title: $title, userNickname: $userNickname, description: $description, imgUrls: $imgUrls)';
   }
 
   @override
@@ -219,14 +206,15 @@ class _$HospitalizationHistoryNoteImpl implements _HospitalizationHistoryNote {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.added, added) || other.added == added) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.user, user) || other.user == user) &&
+            (identical(other.userNickname, userNickname) ||
+                other.userNickname == userNickname) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality().equals(other._imgUrls, _imgUrls));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, added, title, user,
+  int get hashCode => Object.hash(runtimeType, id, added, title, userNickname,
       description, const DeepCollectionEquality().hash(_imgUrls));
 
   @JsonKey(ignore: true)
@@ -243,7 +231,7 @@ abstract class _HospitalizationHistoryNote
       {required final int id,
       required final DateTime added,
       required final String title,
-      required final User user,
+      required final String userNickname,
       final String? description,
       final List<String>? imgUrls}) = _$HospitalizationHistoryNoteImpl;
 
@@ -254,7 +242,7 @@ abstract class _HospitalizationHistoryNote
   @override
   String get title;
   @override
-  User get user;
+  String get userNickname;
   @override
   String? get description;
   @override

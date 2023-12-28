@@ -10,7 +10,7 @@ class HospitalizationHistoryNote with _$HospitalizationHistoryNote {
     required int id,
     required DateTime added,
     required String title,
-    required User user,
+    required String userNickname,
     String? description,
     List<String>? imgUrls
   }) =

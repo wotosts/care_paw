@@ -1,6 +1,8 @@
 import 'package:care_paw/data/database.dart';
 import 'package:care_paw/data/dto/AnimalDto.dart';
 import 'package:care_paw/data/dto/HospitalizationDto.dart';
+import 'package:care_paw/data/dto/HospitalizationNoteDto.dart';
+import 'package:care_paw/model/hospitalization_history_note.dart';
 import 'package:flutter/foundation.dart';
 
 import '../model/animal.dart';
@@ -19,6 +21,9 @@ abstract class HospitalRepository {
   Future<int> createAnimal(Animal animal, int hospitalId);
 
   Future<Hospitalization?> getHospitalization(int id, String userId);
+
+  Future<List<HospitalizationHistoryNote>> getHospitalizationNotes(
+      int hospitalizationId);
 }
 
 class HospitalRepositoryImpl extends HospitalRepository {
@@ -96,6 +101,20 @@ class HospitalRepositoryImpl extends HospitalRepository {
         .then((value) => AnimalDto.fromJson(value));
 
     return addedAnimalDto.id;
+  }
+
+  @override
+  Future<List<HospitalizationHistoryNote>> getHospitalizationNotes(
+      int hospitalizationId) async {
+    var notes = await supabase
+        .from(DBTable.HospitalizationNote.name)
+        .select<List<Map<String, dynamic>>>()
+        .eq('hospitalization_id', hospitalizationId)
+        .then((value) => value
+            .map((e) => HospitalizationNoteDto.fromJson(e).toDomainObject())
+            .toList());
+
+    return notes;
   }
 
   @override
