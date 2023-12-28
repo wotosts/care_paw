@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../model/hospitalization.dart';
+import '../../../model/hospitalization_history_note.dart';
 
 part 'hospitality_detail_viewmodel.g.dart';
 
@@ -28,4 +29,21 @@ Future<Hospitalization?> getHospitalizationDetail(
   }).whenComplete(() => loadingController.hideLoading());
 
   return hospitalization;
+}
+
+@riverpod
+Future<List<HospitalizationHistoryNote>> getHospitalizationNotes(
+    GetHospitalizationNotesRef ref,
+    {required int hospitalizationId}) async {
+  var hospitalRepository = ref.read(hospitalRepositoryProvider);
+
+  var notes = await hospitalRepository
+      .getHospitalizationNotes(hospitalizationId)
+      .catchError((e) {
+    if (kDebugMode) {
+      print(e);
+    }
+  });
+
+  return notes;
 }

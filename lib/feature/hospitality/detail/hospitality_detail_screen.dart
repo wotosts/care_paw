@@ -148,7 +148,14 @@ class _HospitalityDetailScreenState
                   style: Theme.of(context)
                       .textTheme
                       .titleSmall
-                      ?.copyWith(fontWeight: FontWeight.bold))
+                      ?.copyWith(fontWeight: FontWeight.bold)),
+              HospitalityDetailHistoryLoadingItem() => const Center(
+                  child: SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator())),
+              HospitalityDetailHistoryEmptyItem() =>
+                const Center(child: Text("케어 기록이 없습니다.")),
             });
   }
 
@@ -163,10 +170,23 @@ class _HospitalityDetailScreenState
         });
   }
 
+  List<HospitalityDetailItemType> getNoteItems(
+      AsyncValue<List<HospitalizationHistoryNote>> notes) {
+    return switch (notes) {
+      AsyncData(:final value) => value.isEmpty
+          ? [HospitalityDetailHistoryEmptyItem()]
+          : value.map((e) => HospitalityDetailHistoryNoteItem(e)).toList(),
+      AsyncLoading() => [HospitalityDetailHistoryLoadingItem()],
+      _ => <HospitalityDetailHistoryNoteItem>[]
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     final hospitalization =
         ref.watch(getHospitalizationDetailProvider(id: widget.id));
+    final notes = ref
+        .watch(getHospitalizationNotesProvider(hospitalizationId: widget.id));
 
     final items = switch (hospitalization) {
       AsyncData(:final value) => value == null
@@ -176,8 +196,7 @@ class _HospitalityDetailScreenState
                   value.hospitalizationStartDate, value.hospitalizationEndDate),
               HospitalityDetailDividerItem(),
               HospitalityDetailTitleItem('케어 기록'),
-              for (HospitalizationHistoryNote note in value.notes ?? [])
-                HospitalityDetailHistoryNoteItem(note)
+              ...getNoteItems(notes)
             ],
       AsyncError() => <HospitalityDetailItemType>[],
       _ => null

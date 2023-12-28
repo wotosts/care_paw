@@ -7,7 +7,7 @@ part of 'hospitality_detail_viewmodel.dart';
 // **************************************************************************
 
 String _$getHospitalizationDetailHash() =>
-    r'b81cfd442cc5768680d0e04e5a9cd47ee02d9f3d';
+    r'f62140c304bdb0cd5c01c9116e1dc6e2225e52dd';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -159,6 +159,144 @@ class _GetHospitalizationDetailProviderElement
 
   @override
   int get id => (origin as GetHospitalizationDetailProvider).id;
+}
+
+String _$getHospitalizationNotesHash() =>
+    r'bfc143c25ea6331e5be2631019e2e4f9c0ae57a8';
+
+/// See also [getHospitalizationNotes].
+@ProviderFor(getHospitalizationNotes)
+const getHospitalizationNotesProvider = GetHospitalizationNotesFamily();
+
+/// See also [getHospitalizationNotes].
+class GetHospitalizationNotesFamily
+    extends Family<AsyncValue<List<HospitalizationHistoryNote>>> {
+  /// See also [getHospitalizationNotes].
+  const GetHospitalizationNotesFamily();
+
+  /// See also [getHospitalizationNotes].
+  GetHospitalizationNotesProvider call({
+    required int hospitalizationId,
+  }) {
+    return GetHospitalizationNotesProvider(
+      hospitalizationId: hospitalizationId,
+    );
+  }
+
+  @override
+  GetHospitalizationNotesProvider getProviderOverride(
+    covariant GetHospitalizationNotesProvider provider,
+  ) {
+    return call(
+      hospitalizationId: provider.hospitalizationId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getHospitalizationNotesProvider';
+}
+
+/// See also [getHospitalizationNotes].
+class GetHospitalizationNotesProvider
+    extends AutoDisposeFutureProvider<List<HospitalizationHistoryNote>> {
+  /// See also [getHospitalizationNotes].
+  GetHospitalizationNotesProvider({
+    required int hospitalizationId,
+  }) : this._internal(
+          (ref) => getHospitalizationNotes(
+            ref as GetHospitalizationNotesRef,
+            hospitalizationId: hospitalizationId,
+          ),
+          from: getHospitalizationNotesProvider,
+          name: r'getHospitalizationNotesProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getHospitalizationNotesHash,
+          dependencies: GetHospitalizationNotesFamily._dependencies,
+          allTransitiveDependencies:
+              GetHospitalizationNotesFamily._allTransitiveDependencies,
+          hospitalizationId: hospitalizationId,
+        );
+
+  GetHospitalizationNotesProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.hospitalizationId,
+  }) : super.internal();
+
+  final int hospitalizationId;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<HospitalizationHistoryNote>> Function(
+            GetHospitalizationNotesRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetHospitalizationNotesProvider._internal(
+        (ref) => create(ref as GetHospitalizationNotesRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        hospitalizationId: hospitalizationId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<HospitalizationHistoryNote>>
+      createElement() {
+    return _GetHospitalizationNotesProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetHospitalizationNotesProvider &&
+        other.hospitalizationId == hospitalizationId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, hospitalizationId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GetHospitalizationNotesRef
+    on AutoDisposeFutureProviderRef<List<HospitalizationHistoryNote>> {
+  /// The parameter `hospitalizationId` of this provider.
+  int get hospitalizationId;
+}
+
+class _GetHospitalizationNotesProviderElement
+    extends AutoDisposeFutureProviderElement<List<HospitalizationHistoryNote>>
+    with GetHospitalizationNotesRef {
+  _GetHospitalizationNotesProviderElement(super.provider);
+
+  @override
+  int get hospitalizationId =>
+      (origin as GetHospitalizationNotesProvider).hospitalizationId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

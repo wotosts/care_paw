@@ -22,8 +22,6 @@ mixin _$Hospitalization {
       throw _privateConstructorUsedError; // dto 따로 잡기.. 유저별 bookmark list
   DateTime get hospitalizationStartDate => throw _privateConstructorUsedError;
   DateTime? get hospitalizationEndDate => throw _privateConstructorUsedError;
-  List<HospitalizationHistoryNote>? get notes =>
-      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HospitalizationCopyWith<Hospitalization> get copyWith =>
@@ -41,8 +39,7 @@ abstract class $HospitalizationCopyWith<$Res> {
       Animal animal,
       bool isBookmarked,
       DateTime hospitalizationStartDate,
-      DateTime? hospitalizationEndDate,
-      List<HospitalizationHistoryNote>? notes});
+      DateTime? hospitalizationEndDate});
 
   $AnimalCopyWith<$Res> get animal;
 }
@@ -65,7 +62,6 @@ class _$HospitalizationCopyWithImpl<$Res, $Val extends Hospitalization>
     Object? isBookmarked = null,
     Object? hospitalizationStartDate = null,
     Object? hospitalizationEndDate = freezed,
-    Object? notes = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -88,10 +84,6 @@ class _$HospitalizationCopyWithImpl<$Res, $Val extends Hospitalization>
           ? _value.hospitalizationEndDate
           : hospitalizationEndDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      notes: freezed == notes
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as List<HospitalizationHistoryNote>?,
     ) as $Val);
   }
 
@@ -117,8 +109,7 @@ abstract class _$$HospitalizationImplCopyWith<$Res>
       Animal animal,
       bool isBookmarked,
       DateTime hospitalizationStartDate,
-      DateTime? hospitalizationEndDate,
-      List<HospitalizationHistoryNote>? notes});
+      DateTime? hospitalizationEndDate});
 
   @override
   $AnimalCopyWith<$Res> get animal;
@@ -140,7 +131,6 @@ class __$$HospitalizationImplCopyWithImpl<$Res>
     Object? isBookmarked = null,
     Object? hospitalizationStartDate = null,
     Object? hospitalizationEndDate = freezed,
-    Object? notes = freezed,
   }) {
     return _then(_$HospitalizationImpl(
       id: null == id
@@ -163,10 +153,6 @@ class __$$HospitalizationImplCopyWithImpl<$Res>
           ? _value.hospitalizationEndDate
           : hospitalizationEndDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      notes: freezed == notes
-          ? _value._notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as List<HospitalizationHistoryNote>?,
     ));
   }
 }
@@ -179,10 +165,8 @@ class _$HospitalizationImpl extends _Hospitalization {
       required this.animal,
       required this.isBookmarked,
       required this.hospitalizationStartDate,
-      this.hospitalizationEndDate,
-      final List<HospitalizationHistoryNote>? notes})
-      : _notes = notes,
-        super._();
+      this.hospitalizationEndDate})
+      : super._();
 
   @override
   final int id;
@@ -195,19 +179,10 @@ class _$HospitalizationImpl extends _Hospitalization {
   final DateTime hospitalizationStartDate;
   @override
   final DateTime? hospitalizationEndDate;
-  final List<HospitalizationHistoryNote>? _notes;
-  @override
-  List<HospitalizationHistoryNote>? get notes {
-    final value = _notes;
-    if (value == null) return null;
-    if (_notes is EqualUnmodifiableListView) return _notes;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
 
   @override
   String toString() {
-    return 'Hospitalization(id: $id, animal: $animal, isBookmarked: $isBookmarked, hospitalizationStartDate: $hospitalizationStartDate, hospitalizationEndDate: $hospitalizationEndDate, notes: $notes)';
+    return 'Hospitalization(id: $id, animal: $animal, isBookmarked: $isBookmarked, hospitalizationStartDate: $hospitalizationStartDate, hospitalizationEndDate: $hospitalizationEndDate)';
   }
 
   @override
@@ -223,19 +198,12 @@ class _$HospitalizationImpl extends _Hospitalization {
                     other.hospitalizationStartDate, hospitalizationStartDate) ||
                 other.hospitalizationStartDate == hospitalizationStartDate) &&
             (identical(other.hospitalizationEndDate, hospitalizationEndDate) ||
-                other.hospitalizationEndDate == hospitalizationEndDate) &&
-            const DeepCollectionEquality().equals(other._notes, _notes));
+                other.hospitalizationEndDate == hospitalizationEndDate));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      animal,
-      isBookmarked,
-      hospitalizationStartDate,
-      hospitalizationEndDate,
-      const DeepCollectionEquality().hash(_notes));
+  int get hashCode => Object.hash(runtimeType, id, animal, isBookmarked,
+      hospitalizationStartDate, hospitalizationEndDate);
 
   @JsonKey(ignore: true)
   @override
@@ -251,8 +219,7 @@ abstract class _Hospitalization extends Hospitalization {
       required final Animal animal,
       required final bool isBookmarked,
       required final DateTime hospitalizationStartDate,
-      final DateTime? hospitalizationEndDate,
-      final List<HospitalizationHistoryNote>? notes}) = _$HospitalizationImpl;
+      final DateTime? hospitalizationEndDate}) = _$HospitalizationImpl;
   _Hospitalization._() : super._();
 
   @override
@@ -265,8 +232,6 @@ abstract class _Hospitalization extends Hospitalization {
   DateTime get hospitalizationStartDate;
   @override
   DateTime? get hospitalizationEndDate;
-  @override
-  List<HospitalizationHistoryNote>? get notes;
   @override
   @JsonKey(ignore: true)
   _$$HospitalizationImplCopyWith<_$HospitalizationImpl> get copyWith =>

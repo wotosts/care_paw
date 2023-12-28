@@ -16,8 +16,7 @@ class Hospitalization with _$Hospitalization {
     required Animal animal,
     required bool isBookmarked, // dto 따로 잡기.. 유저별 bookmark list
     required DateTime hospitalizationStartDate,
-    DateTime? hospitalizationEndDate,
-    List<HospitalizationHistoryNote>? notes
+    DateTime? hospitalizationEndDate
   }) = _Hospitalization;
 
   String hospitalizationDateString() {

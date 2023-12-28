@@ -25,3 +25,7 @@ class HospitalityDetailTitleItem extends HospitalityDetailItemType {
 
   final String title;
 }
+
+class HospitalityDetailHistoryLoadingItem extends HospitalityDetailItemType {}
+
+class HospitalityDetailHistoryEmptyItem extends HospitalityDetailItemType {}
