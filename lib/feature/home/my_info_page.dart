@@ -1,5 +1,6 @@
 import 'package:care_paw/feature/components/sized_spacer.dart';
 import 'package:care_paw/feature/home/home_viewmodel.dart';
+import 'package:care_paw/feature/home/my_info_page_viewmodel.dart';
 import 'package:care_paw/feature/route.dart';
 import 'package:care_paw/util/EmptyExtensions.dart';
 import 'package:flutter/material.dart';
@@ -57,10 +58,9 @@ class _MyInfoPageState extends ConsumerState<MyInfoPage> {
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.read(homeViewModelProvider.notifier);
-    final list = ref.watch(homeViewModelProvider.select((value) => value.list));
     final user = ref.watch(homeViewModelProvider.select((value) => value.user));
 
-    final bookmarked = list?.where((element) => element.isBookmarked == true);
+    final bookmarked = ref.watch(getBookmarkedHospitalizationsProvider);
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -98,11 +98,12 @@ class _MyInfoPageState extends ConsumerState<MyInfoPage> {
               const SizedSpacer(height: 20),
               const Text('즐겨찾기 환자'),
               Expanded(
-                child: (bookmarked == null || bookmarked!.isEmpty)
+                  child: switch (bookmarked) {
+                AsyncData(:final value) => value.isEmpty
                     ? const Center(child: Text('즐겨찾기가 없어요.'))
                     : ListView(
                         children: [
-                          for (Hospitalization item in bookmarked)
+                          for (Hospitalization item in value)
                             Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5),
@@ -115,7 +116,13 @@ class _MyInfoPageState extends ConsumerState<MyInfoPage> {
                                     }))
                         ],
                       ),
-              ),
+                AsyncLoading() => const Center(
+                    child: SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator())),
+                _ => const Center(child: Text('오류가 발생했어요.'))
+              }),
             ],
           ),
         ));
