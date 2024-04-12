@@ -1,15 +1,18 @@
 import 'package:care_paw/feature/components/LoadingController.dart';
 import 'package:care_paw/feature/route.dart';
+import 'package:care_paw/util/EmptyExtensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'feature/signin/splash_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   await Supabase.initialize(
-    url: 'https://slrafytgdorwxxdcaasi.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNscmFmeXRnZG9yd3h4ZGNhYXNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEwNzAwNzcsImV4cCI6MjAxNjY0NjA3N30.rgdxCqjZ-uxcMRN1wI2waxhHqPsBWg0FETPJ5uBOWmo',
+    url: dotenv.env['sp_url'].orEmpty(),
+    anonKey: dotenv.env['sp_key'].orEmpty(),
   );
 
   runApp(const ProviderScope(child: MyApp()));
