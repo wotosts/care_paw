@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:care_paw/data/di.dart';
-import 'package:care_paw/data/user_repository.dart';
 import 'package:care_paw/feature/components/LoadingController.dart';
 import 'package:care_paw/feature/hospitality/add/hospitality_add_or_edit_state.dart';
 import 'package:care_paw/util/EmptyExtensions.dart';
@@ -10,8 +9,10 @@ import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../data/hospital_repository.dart';
-import '../../../data/image_repository.dart';
+import '../../../domain/bucket.dart';
+import '../../../domain/hospital_repository.dart';
+import '../../../domain/image_repository.dart';
+import '../../../domain/user_repository.dart';
 import '../../../model/animal.dart';
 
 final hospitalityAddOrEditViewModelProvider = StateNotifierProvider.autoDispose<

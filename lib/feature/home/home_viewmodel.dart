@@ -2,10 +2,8 @@ import 'package:care_paw/data/di.dart';
 import 'package:care_paw/model/hospitalization.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../data/hospital_repository.dart';
-import '../../data/user_repository.dart';
-import '../../model/animal.dart';
-import '../../model/user.dart';
+import '../../domain/hospital_repository.dart';
+import '../../domain/user_repository.dart';
 import 'home_state.dart';
 
 abstract class HomeEvent {}

@@ -7,7 +7,7 @@ part of 'my_info_page_viewmodel.dart';
 // **************************************************************************
 
 String _$getBookmarkedHospitalizationsHash() =>
-    r'0418f3db5339e21bceceb85d7eaeda8e38a394b4';
+    r'ec0858faa2ac6f3a4102c0dc20346d66dd4ba676';
 
 /// See also [getBookmarkedHospitalizations].
 @ProviderFor(getBookmarkedHospitalizations)

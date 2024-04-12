@@ -1,0 +1,2 @@
+
+enum Bucket { animal, hospitalization }

@@ -2,18 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 
+import '../domain/bucket.dart';
+import '../domain/image_repository.dart';
 import 'database.dart';
 import 'package:path/path.dart';
 
-enum Bucket { animal, hospitalization }
-
-abstract class ImageRepository {
-  Future<String> uploadImage(Bucket bucket, File file, String name);
-
-  Future<void> deleteImage(String path);
-
-  Future<String> getUrl(Bucket bucket, String? name);
-}
 
 class ImageRepositoryImpl extends ImageRepository {
   @override

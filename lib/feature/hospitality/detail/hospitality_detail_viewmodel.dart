@@ -3,6 +3,9 @@ import 'package:care_paw/feature/components/LoadingController.dart';
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../domain/hospital_repository.dart';
+import '../../../domain/image_repository.dart';
+import '../../../domain/user_repository.dart';
 import '../../../model/hospitalization.dart';
 import '../../../model/hospitalization_history_note.dart';
 

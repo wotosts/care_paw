@@ -6,6 +6,8 @@ import 'package:care_paw/model/hospital.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../domain/hospital_repository.dart';
+import '../../domain/user_repository.dart';
 import 'sign_in_event.dart';
 
 final signInViewModelProvider =

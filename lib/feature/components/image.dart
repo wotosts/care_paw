@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart';
 
 import '../../data/di.dart';
-import '../../data/image_repository.dart';
+import '../../domain/bucket.dart';
 
 /// supabase image
 class SBImage extends ConsumerWidget {

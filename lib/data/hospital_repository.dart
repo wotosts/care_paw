@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:care_paw/data/database.dart';
 import 'package:care_paw/data/dto/AnimalDto.dart';
 import 'package:care_paw/data/dto/HospitalizationDto.dart';
@@ -5,29 +7,12 @@ import 'package:care_paw/data/dto/HospitalizationNoteDto.dart';
 import 'package:care_paw/model/hospitalization_history_note.dart';
 import 'package:flutter/foundation.dart';
 
+import '../domain/hospital_repository.dart';
 import '../model/animal.dart';
 import '../model/hospital.dart';
 import '../model/hospitalization.dart';
+import '../model/user.dart';
 
-abstract class HospitalRepository {
-  Future<List<Hospital>> getHospitals();
-
-  Future<List<Hospitalization>> getTodayHospitalizations(
-      int hospitalId, String userId);
-
-  Future<List<Hospitalization>> getBookmarkedHospitalizations(
-      int hospitalId, String userId);
-
-  Future<int> createHospitalization(
-      int animalId, int hospitalId, DateTime startDate, DateTime? endDate);
-
-  Future<int> createAnimal(Animal animal, int hospitalId);
-
-  Future<Hospitalization?> getHospitalization(int id, String userId);
-
-  Future<List<HospitalizationHistoryNote>> getHospitalizationNotes(
-      int hospitalizationId);
-}
 
 class HospitalRepositoryImpl extends HospitalRepository {
   @override
@@ -37,7 +22,12 @@ class HospitalRepositoryImpl extends HospitalRepository {
       supabase
           .from(DBTable.Hospitalization.name)
           .select<List<Map<String, dynamic>>>('*, ${DBTable.Animal.name}(*)')
-          .eq('hospital_id', hospitalId),
+          .eq('hospital_id', hospitalId)
+          // .gte(
+          //     "start_date",
+          //     DateTime.now()
+          //         .copyWith(hour: 0, minute: 0, second: 0, millisecond: 0))
+    ,
       supabase
           .from(DBTable.Bookmark.name)
           .select<List<Map<String, dynamic>>>()
@@ -166,5 +156,20 @@ class HospitalRepositoryImpl extends HospitalRepository {
     ).wait;
 
     return dto?.toDomainObject(bookmarked);
+  }
+
+  @override
+  Future<void> addHospitalizationNote(
+      String title, String description, List<String> imgUrls, User user) async {
+    return await supabase.from(DBTable.HospitalizationNote.name).insert(
+        HospitalizationNoteDto(
+                id: 0,
+                created_at: DateTime.now(),
+                title: title,
+                user_id: user.id,
+                user_nickname: user.nickname,
+                description: description,
+                img_urls: const JsonEncoder().convert(imgUrls))
+            .toInsertObject());
   }
 }
