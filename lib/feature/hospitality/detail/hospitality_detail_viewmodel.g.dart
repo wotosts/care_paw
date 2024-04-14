@@ -7,7 +7,7 @@ part of 'hospitality_detail_viewmodel.dart';
 // **************************************************************************
 
 String _$getHospitalizationDetailHash() =>
-    r'f62140c304bdb0cd5c01c9116e1dc6e2225e52dd';
+    r'9a1bfe715576394bb4e5f8ef794c7c91241daab4';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -162,7 +162,7 @@ class _GetHospitalizationDetailProviderElement
 }
 
 String _$getHospitalizationNotesHash() =>
-    r'bfc143c25ea6331e5be2631019e2e4f9c0ae57a8';
+    r'2c8b2b97da938afaa4930592303ad6c9b6dcc79e';
 
 /// See also [getHospitalizationNotes].
 @ProviderFor(getHospitalizationNotes)
